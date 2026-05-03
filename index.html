@@ -683,133 +683,108 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
 <script>
 // ── BUILT-IN PROGRAM DATA ─────────────────────────────
 
-const POWER_DAYS=[
-{day:1,dow:'SUN',title:"Chest & Back + LSD Bike",tags:["Strength","Cardio"],isRest:false,
- note:"Explosive push ups always first. Drop to 80w if cant hold conversation.",
- secs:[
-  {type:"strength",lbl:"Strength",exs:[
-    {n:"Explosive Push Up (clap or max speed)",s:4,r:6},
-    {n:"Bench Press",s:4,r:6,m:"heavy"},
-    {n:"Incline Dumbbell Press",s:3,r:10},
-    {n:"Weighted Pull Up",s:4,r:5},
-    {n:"Bent Over Barbell Row",s:4,r:6,m:"heavy"},
-    {n:"Cable Row wide grip",s:3,r:12},
-    {n:"Face Pull",s:3,r:15},
-  ]},
-  {type:"cardio",lbl:"Cardio",exs:[
-    {n:"Keiser Bike Zone 2",m:"45 mins ~100w · talk test full sentences only"},
-  ]},
-]},
-{day:2,dow:'MON',title:"Legs & Lower Back",tags:["Strength"],isRest:false,
- note:"Box jumps always first. Rest 2-3 mins between squat sets. No cardio — legs need to recover for Tuesday.",
- secs:[
-  {type:"strength",lbl:"Strength",exs:[
-    {n:"Box Jump max height full reset",s:5,r:4},
-    {n:"Barbell Back Squat",s:5,r:5,m:"heavy"},
-    {n:"Romanian Deadlift",s:4,r:6},
-    {n:"Bulgarian Split Squat",s:3,r:8,m:"each leg"},
-    {n:"Leg Press",s:3,r:12},
-    {n:"Nordic Hamstring Curl",s:3,r:6},
-    {n:"Single Leg Calf Raise",s:3,r:15,m:"each"},
-  ]},
-]},
-{day:3,dow:'TUE',title:"Legs Accessory + EMOM 20",tags:["Strength","Cardio"],isRest:false,
- note:"Rower last intentionally. Blood flow only for accessory work.",
- secs:[
-  {type:"accessory",lbl:"Accessory",exs:[
-    {n:"Leg Curl machine",s:3,r:15},
-    {n:"Leg Extension",s:3,r:15},
-    {n:"Standing Calf Raise",s:4,r:20},
-    {n:"Tibialis Raise against wall",s:3,r:20},
-  ]},
-  {type:"emom",lbl:"EMOM 20 mins",exs:[
-    {n:"Min 1 — Ski Erg",m:"max effort"},
-    {n:"Min 2 — Assault Bike",m:"hard effort"},
-    {n:"Min 3 — Rower",m:"moderate"},
-    {n:"Min 4 — Full Rest",m:"Repeat ×5 = 20 mins"},
-  ]},
-]},
-{day:4,dow:'WED',title:"Full Rest Day",tags:["Rest"],isRest:true,
- note:"Sleep, eat, recover. Adaptation happens during rest not training.",
- secs:[]},
-{day:5,dow:'THU',title:"Compound Lifts (Power Focus)",tags:["Power"],isRest:false,
- note:"Power clean is the most important exercise. Fresh after Wednesday rest — peak CNS day. No cardio. Sleep well.",
- secs:[
-  {type:"power",lbl:"Power",exs:[
-    {n:"Power Clean or Hang Clean",s:5,r:3,m:"explosive"},
-    {n:"Deadlift",s:5,r:3,m:"heavy · 3 min rest"},
-    {n:"Barbell Back Squat",s:4,r:4,m:"heavy"},
-    {n:"Bench Press",s:4,r:4,m:"heavy"},
-    {n:"Weighted Pull Up",s:4,r:4},
-    {n:"Farmers Carry",s:3,m:"40m heavy"},
-  ]},
-]},
-{day:6,dow:'FRI',title:"Arms & Shoulders + Tabata",tags:["Strength","Cardio"],isRest:false,
- note:"Near-maximal every sprint. If you could go harder it wasnt Tabata.",
- secs:[
-  {type:"strength",lbl:"Strength",exs:[
-    {n:"Overhead Press barbell",s:4,r:6,m:"heavy"},
-    {n:"Dumbbell Lateral Raise",s:3,r:15},
-    {n:"Barbell Curl",s:3,r:8},
-    {n:"Hammer Curl",s:3,r:10},
-    {n:"Skull Crusher",s:3,r:10},
-    {n:"Tricep Dip weighted",s:3,r:8},
-    {n:"Rear Delt Fly",s:3,r:15},
-  ]},
-  {type:"tabata",lbl:"Tabata",exs:[
-    {n:"Treadmill Sprint",s:3,m:"8×20s on / 10s off · rest 2 mins between rounds"},
-  ]},
-]},
-{day:7,dow:'SAT',title:"Core + LSD Run",tags:["Strength","Cardio"],isRest:false,
- note:"Explosive power comes from a stiff trunk. If legs feel fresh after run, optional 30-45 min swim or outdoor bike ride.",
- secs:[
-  {type:"core",lbl:"Core",exs:[
-    {n:"Dead Bug",s:3,r:10,m:"each side"},
-    {n:"Ab Wheel Rollout",s:4,r:8},
-    {n:"Hanging Leg Raise",s:3,r:12},
-    {n:"Pallof Press",s:3,r:12,m:"each side"},
-    {n:"Copenhagen Plank",s:3,m:"20s each"},
-    {n:"RKC Plank",s:3,m:"30s"},
-  ]},
-  {type:"cardio",lbl:"Cardio",exs:[
-    {n:"Easy Zone 2 Run",m:"45-60 mins · conversational pace · flat terrain preferred"},
-  ]},
-]},
-];
+function makeTrainingPlanProg(){
+  return{
+    id:'training_plan',
+    name:'WEEKLY PLAN',
+    subtitle:'7-Day Strength + Zone 2 + HIIT',
+    isBuiltIn:true,
+    createdAt:0,
+    days:[
+      {day:1,dow:'MON',title:'Zone 2 + EMOM + PT HIIT',tags:['Cardio'],isRest:false,
+       note:'Zone 2 bike first, then EMOM, then PT HIIT.',
+       secs:[
+        {type:'cardio',lbl:'Zone 2 Bike',exs:[
+          {n:'Zone 2 Bike',m:'30–45 min · 60–70% HR max · conversational pace'},
+        ]},
+        {type:'emom',lbl:'EMOM',exs:[
+          {n:'EMOM 16 min',m:'Your own protocol'},
+        ]},
+        {type:'cardio',lbl:'PT HIIT',exs:[
+          {n:'PT HIIT',m:'Strength circuit · PT duration'},
+        ]},
+       ]},
+      {day:2,dow:'TUE',title:'Strength A + Zone 2 Swim',tags:['Strength','Cardio'],isRest:false,
+       note:'Estimated session: 55–60 min total.',
+       secs:[
+        {type:'strength',lbl:'Strength A',exs:[
+          {n:'Zercher Squat',s:4,r:5,m:'50kg · 3 sec descent · 3–4 min rest'},
+          {n:'Bulgarian Split Squat',s:3,r:6,m:'each · BW → 10kg DBs wk3 · rear foot on bench · 2 min rest'},
+          {n:'Walking Lunges',s:3,r:10,m:'each · BW → loaded wk3 · DBs at sides · 2 min rest'},
+          {n:'Goblet Squat',s:3,r:8,m:'16kg KB · tempo: 3 sec down · 90 sec rest'},
+          {n:'Ab Wheel Rollout',s:3,r:8,m:'BW · slow and controlled · 90 sec rest'},
+        ]},
+        {type:'cardio',lbl:'Zone 2 Swim',exs:[
+          {n:'Zone 2 Swim',m:'30–45 min · 60–70% HR max after lifting'},
+        ]},
+       ]},
+      {day:3,dow:'WED',title:'Zone 2 + EMOM + PT HIIT',tags:['Cardio'],isRest:false,
+       note:'Zone 2 bike first, then EMOM, then PT HIIT.',
+       secs:[
+        {type:'cardio',lbl:'Zone 2 Bike',exs:[
+          {n:'Zone 2 Bike',m:'30–45 min · 60–70% HR max'},
+        ]},
+        {type:'emom',lbl:'EMOM',exs:[
+          {n:'EMOM 16 min',m:'Your own protocol'},
+        ]},
+        {type:'cardio',lbl:'PT HIIT',exs:[
+          {n:'PT HIIT',m:'Running HIIT · PT duration'},
+        ]},
+       ]},
+      {day:4,dow:'THU',title:'Strength B + Zone 2 Swim',tags:['Strength','Cardio'],isRest:false,
+       note:'Estimated session: 55–60 min total.',
+       secs:[
+        {type:'strength',lbl:'Strength B',exs:[
+          {n:'Barbell Bench Press',s:4,r:5,m:'50kg · controlled · full range · 2–3 min rest'},
+          {n:'Barbell Bent Over Row',s:4,r:5,m:'45kg · overhand grip · chest to bar · 2–3 min rest'},
+          {n:'Overhead Press',s:3,r:6,m:'30kg · strict · no leg drive · 2–3 min rest'},
+          {n:'Pull-ups',s:3,r:6,m:'BW · dead hang · chin over bar · 90 sec rest'},
+          {n:'DB Incline Press',s:3,r:8,m:'17.5kg each · scapular retraction · 2 min rest'},
+          {n:'Band Pull-Aparts',s:3,r:15,m:'Light band · shoulder health · 60 sec rest'},
+        ]},
+        {type:'cardio',lbl:'Zone 2 Swim',exs:[
+          {n:'Zone 2 Swim',m:'30–45 min · 60–70% HR max after lifting'},
+        ]},
+       ]},
+      {day:5,dow:'FRI',title:'Zone 2 Run + Beep Test + Tabata',tags:['Cardio'],isRest:false,
+       note:'Beep test always before Tabata. Maximal effort on both.',
+       secs:[
+        {type:'cardio',lbl:'Zone 2 Run',exs:[
+          {n:'Zone 2 Run',m:'30–45 min · 60–70% HR max'},
+        ]},
+        {type:'cardio',lbl:'Beep Test',exs:[
+          {n:'Beep Test',m:'Maximal effort · always before Tabata'},
+        ]},
+        {type:'tabata',lbl:'Tabata',exs:[
+          {n:'Tabata 16 min',m:'Your protocol · finisher'},
+        ]},
+       ]},
+      {day:6,dow:'SAT',title:'Strength C + Zone 2 Swim',tags:['Strength','Cardio'],isRest:false,
+       note:'Estimated session: 60–65 min total.',
+       secs:[
+        {type:'strength',lbl:'Strength C',exs:[
+          {n:'Conventional Deadlift',s:4,r:5,m:'60kg · brace hard · hinge not squat · 3–4 min rest'},
+          {n:'Romanian Deadlift',s:3,r:6,m:'55kg · overhand grip · slow eccentric · 3 min rest'},
+          {n:'Barbell Hip Thrust',s:3,r:8,m:'60kg · shoulders on bench · full glute squeeze · 3 min rest'},
+          {n:'Single Leg RDL',s:3,r:6,m:'each · 15kg DB · balance + hamstring · 2 min rest'},
+          {n:'Inverted Row',s:3,r:8,m:'BW · barbell in rack at hip height · 90 sec rest'},
+          {n:'Plank',s:3,m:'45 sec · BW · posterior pelvic tilt · 90 sec rest'},
+        ]},
+        {type:'cardio',lbl:'Zone 2 Swim',exs:[
+          {n:'Zone 2 Swim',m:'30–45 min · 60–70% HR max after lifting'},
+        ]},
+       ]},
+      {day:7,dow:'SUN',title:'Easy Zone 2',tags:['Cardio'],isRest:false,
+       note:'Genuine recovery. Conversational pace only.',
+       secs:[
+        {type:'cardio',lbl:'Zone 2',exs:[
+          {n:'Easy Zone 2 Run or Swim',m:'30 min max · conversational pace only'},
+        ]},
+       ]},
+    ]
+  };
+}
 
-const MOB_ONLY=[
-  {type:"mobility",lbl:"Daily Mobility",exs:[
-    {n:"Wrist circles",m:"30s each direction"},
-    {n:"Prayer stretch",s:3,m:"30s hold"},
-    {n:"Reverse prayer stretch",s:3,m:"30s hold"},
-    {n:"Wrist extension stretch on floor",s:3,m:"30s hold"},
-  ]},
-];
-const MOB_LOAD=[
-  {type:"mobility",lbl:"Daily Mobility",exs:[
-    {n:"Wrist circles",m:"30s each direction"},
-    {n:"Prayer stretch",s:3,m:"30s hold"},
-    {n:"Reverse prayer stretch",s:3,m:"30s hold"},
-    {n:"Wrist extension stretch on floor",s:3,m:"30s hold"},
-  ]},
-  {type:"strength",lbl:"Loading",exs:[
-    {n:"Plate Pinch Carry",s:3,m:"30s"},
-    {n:"Wrist Roller up and down",s:3,m:"full roll"},
-    {n:"Barbell Wrist Curl light",s:3,r:15},
-    {n:"Barbell Reverse Wrist Curl",s:3,r:15},
-    {n:"Dead Hang from pull up bar",s:3,m:"30-45s"},
-  ]},
-];
-
-const WRIST_DAYS=[
-{day:1,dow:'SUN',title:"Wrist Mobility",tags:["Mobility"],isRest:false,note:"",secs:MOB_ONLY},
-{day:2,dow:'MON',title:"Wrist Mobility",tags:["Mobility"],isRest:false,note:"",secs:MOB_ONLY},
-{day:3,dow:'TUE',title:"Wrist Loading + Mobility",tags:["Strength","Mobility"],isRest:false,note:"",secs:MOB_LOAD},
-{day:4,dow:'WED',title:"Full Rest Day",tags:["Rest"],isRest:true,note:"Rest and recover.",secs:[]},
-{day:5,dow:'THU',title:"Wrist Loading + Mobility",tags:["Strength","Mobility"],isRest:false,note:"",secs:MOB_LOAD},
-{day:6,dow:'FRI',title:"Wrist Mobility",tags:["Mobility"],isRest:false,note:"",secs:MOB_ONLY},
-{day:7,dow:'SAT',title:"Wrist Loading + Mobility",tags:["Strength","Mobility"],isRest:false,note:"",secs:MOB_LOAD},
-];
 
 // Original wrist data for the detail screen (unchanged)
 const WRIST={secs:[
@@ -843,35 +818,26 @@ const ls=(k,d=null)=>{try{const v=localStorage.getItem(k);return v!==null?JSON.p
 const ss=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 
 // ── PROGRAM MANAGEMENT ────────────────────────────────
-function makePowerProg(){
-  return{id:'power_default',name:'POWER',subtitle:'7-Day Training Block',
-    isBuiltIn:true,createdAt:0,days:POWER_DAYS};
-}
-function makeWristProg(){
-  return{id:'wrist_default',name:'WRIST STRENGTH',
-    subtitle:'Run alongside your main program — not instead of it',
-    isBuiltIn:true,createdAt:0,days:WRIST_DAYS};
-}
-
 function initPrograms(){
-  if(!localStorage.getItem('power_programs')){
-    ss('power_programs',[makePowerProg(),makeWristProg()]);
-    // Migrate old non-namespaced data
-    ['completedDays','exerciseChecks','exerciseNotes','dayNotes'].forEach(key=>{
-      const old=localStorage.getItem(key);
-      if(old&&!localStorage.getItem('power_default_'+key)){
-        localStorage.setItem('power_default_'+key,old);
-      }
-    });
+  const OLD_IDS=['power_default','wrist_default'];
+  let progs=ls('power_programs')||[];
+  // Remove old built-in programs, keep any user-created ones
+  progs=progs.filter(p=>!OLD_IDS.includes(p.id));
+  // Add training plan if not already present
+  if(!progs.find(p=>p.id==='training_plan')){
+    progs.unshift(makeTrainingPlanProg());
+    ss('power_programs',progs);
   }
-  if(!localStorage.getItem('power_active_program')){
-    localStorage.setItem('power_active_program','power_default');
+  // Fix active program if it pointed at a now-removed program
+  const activeId=localStorage.getItem('power_active_program');
+  if(!activeId||OLD_IDS.includes(activeId)||!progs.find(p=>p.id===activeId)){
+    localStorage.setItem('power_active_program','training_plan');
   }
 }
 
-function getPrograms(){return ls('power_programs')||[makePowerProg(),makeWristProg()]}
+function getPrograms(){return ls('power_programs')||[makeTrainingPlanProg()]}
 function savePrograms(p){ss('power_programs',p)}
-function getActiveProgramId(){return localStorage.getItem('power_active_program')||'power_default'}
+function getActiveProgramId(){return localStorage.getItem('power_active_program')||'training_plan'}
 function getActiveProgram(){
   const id=getActiveProgramId();
   const progs=getPrograms();
