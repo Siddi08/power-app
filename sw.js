@@ -1,4 +1,4 @@
-const CACHE = 'power-v2';
+const CACHE = 'power-v3';
 
 // Install: pre-cache shell so offline works from the very first visit
 self.addEventListener('install', e => {
