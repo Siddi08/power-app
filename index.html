@@ -936,12 +936,35 @@ const lsp=(key,d={})=>{const v=localStorage.getItem(getActiveProgramId()+'_'+key
 const ssp=(key,val)=>localStorage.setItem(getActiveProgramId()+'_'+key,JSON.stringify(val));
 const lspFor=(pid,key,d={})=>{const v=localStorage.getItem(pid+'_'+key);try{return v!==null?JSON.parse(v):d}catch{return d}};
 
+// ── WEEK DATE SYNC ────────────────────────────────────
+// Store a start-date per program so the week number auto-advances each
+// calendar week without any manual arrow pressing.
+function ensureStartDate(){
+  if(lsp('startDate',null)!==null)return;
+  // Anchor start so calcCurrentWeek() returns curWk for this calendar week.
+  const now=new Date();
+  const thisMon=new Date(now);
+  thisMon.setDate(now.getDate()-((now.getDay()+6)%7));
+  thisMon.setHours(0,0,0,0);
+  ssp('startDate',thisMon.getTime()-(curWk-1)*7*24*60*60*1000);
+}
+
+function calcCurrentWeek(){
+  const startTs=lsp('startDate',null);
+  if(startTs===null)return curWk;
+  const thisMon=new Date();
+  thisMon.setDate(thisMon.getDate()-((thisMon.getDay()+6)%7));
+  thisMon.setHours(0,0,0,0);
+  return Math.max(1,Math.round((thisMon.getTime()-startTs)/(7*24*60*60*1000))+1);
+}
+
 function switchProgram(id){
-  // Save current week for current program
   localStorage.setItem(getActiveProgramId()+'_lastWeek',String(curWk));
   localStorage.setItem('power_active_program',id);
   const lw=parseInt(localStorage.getItem(id+'_lastWeek')||'1');
   curWk=lw>=1?lw:1;
+  ensureStartDate();
+  curWk=calcCurrentWeek();
   showScr('week');
 }
 
@@ -950,7 +973,7 @@ function deleteProgram(id){
   if(!confirm('Delete this program and all its progress data? This cannot be undone.'))return;
   const progs=getPrograms().filter(p=>p.id!==id);
   savePrograms(progs);
-  ['completedDays','exerciseChecks','exerciseNotes','dayNotes','lastWeek'].forEach(k=>{
+  ['completedDays','exerciseChecks','exerciseNotes','dayNotes','lastWeek','startDate'].forEach(k=>{
     localStorage.removeItem(id+'_'+k);
   });
   renderPrograms();
@@ -1728,8 +1751,42 @@ function ffOpenWorkout(dayNum){
   ffSetsData=FF_EXS.map(ex=>Array(ex.sets).fill(false));
   ffStopTimer();
   document.getElementById('ff-back-lbl').textContent=prevScr==='programs'?'Programs':'Week';
-  renderFlatFeetEx();
+  const c=lsp('completedDays');
+  if(c[curWk+'-'+ffDayNum]){
+    renderFlatFeetLogged();
+  } else {
+    renderFlatFeetEx();
+  }
   document.getElementById('scr-flatfeet').classList.add('active');
+}
+
+function renderFlatFeetLogged(){
+  const DOWS=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const prog=getActiveProgram();
+  const day=prog.days.find(d=>d.day===ffDayNum);
+  const dayLabel=day?day.dow:'Day '+ffDayNum;
+  document.getElementById('ff-num').textContent='Week '+curWk+' · '+dayLabel;
+  document.getElementById('ff-name').textContent='Session Logged';
+  document.getElementById('ff-body').innerHTML=`
+    <div class="ff-complete">
+      <div class="ff-complete-icon">&#x2705;</div>
+      <div class="ff-complete-title">ALREADY LOGGED</div>
+      <div class="ff-complete-sub">This session is marked complete.</div>
+      <div class="logwrap" style="padding:0 0 10px">
+        <button class="logbtn" style="background:var(--sf2);color:var(--r);border:1px solid var(--r)" onclick="ffUnlog()">UN-LOG THIS SESSION</button>
+      </div>
+      <div class="logwrap" style="padding:0">
+        <button class="logbtn" onclick="closeFlatFeet()">BACK</button>
+      </div>
+    </div>`;
+  document.getElementById('scr-flatfeet').scrollTop=0;
+}
+
+function ffUnlog(){
+  const c=lsp('completedDays');
+  delete c[curWk+'-'+ffDayNum];
+  ssp('completedDays',c);
+  renderFlatFeetEx();
 }
 
 function ffStartFromPrograms(){
@@ -1882,6 +1939,12 @@ function renderFlatFeetComplete(){
 
 // ── INIT ──────────────────────────────────────────────
 initPrograms();
+// Restore last-viewed week for the active program, then auto-advance to
+// the real current week based on the phone's date.
+const _lw=parseInt(localStorage.getItem(getActiveProgramId()+'_lastWeek')||'1');
+curWk=_lw>=1?_lw:1;
+ensureStartDate();
+curWk=calcCurrentWeek();
 planDayIdx=getTodayIdx();
 renderWeek();
 
