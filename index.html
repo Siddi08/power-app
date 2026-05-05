@@ -522,6 +522,22 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
 }
 .rb-skip:active{border-color:var(--y);color:var(--y)}
 
+/* ── LOGGED BANNER ── */
+.logged-banner{
+  display:flex;align-items:center;gap:12px;
+  margin:12px 16px 4px;padding:11px 14px;
+  background:rgba(200,255,0,.07);border:1px solid rgba(200,255,0,.25);
+  border-radius:8px;
+}
+.lb-check{color:var(--y);font-size:17px;font-weight:700;flex-shrink:0}
+.lb-txt{flex:1;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.05em;color:var(--y)}
+.lb-unlog{
+  padding:6px 12px;background:none;border:1px solid var(--bd);
+  border-radius:6px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;
+  font-size:12px;font-weight:600;cursor:pointer;letter-spacing:.04em;flex-shrink:0;
+}
+.lb-unlog:active{border-color:var(--r);color:var(--r)}
+
 /* ── FLAT FEET FIX ── */
 .ff-dots{display:flex;gap:8px;padding:16px 16px 0;justify-content:center}
 .ff-dot{width:10px;height:10px;border-radius:50%;background:var(--bd);flex-shrink:0}
@@ -1110,7 +1126,16 @@ function renderDay(wk,dayNum){
 
   const checks=lsp('exerciseChecks');
   const notes=lsp('exerciseNotes');
+  const comp=!!lsp('completedDays')[`${wk}-${dayNum}`];
   let idx=0,html='';
+
+  if(comp){
+    html+=`<div class="logged-banner">
+      <span class="lb-check">✓</span>
+      <span class="lb-txt">Session Logged</span>
+      <button class="lb-unlog" onclick="togComplete(${wk},${dayNum})">Un-log</button>
+    </div>`;
+  }
 
   if(d.isRest){
     html=`<div class="rest-card">
@@ -1146,7 +1171,6 @@ function renderDay(wk,dayNum){
   }
 
   const dn=lsp('dayNotes');
-  const comp=!!lsp('completedDays')[`${wk}-${dayNum}`];
   html+=`<div class="sn-wrap">
     <div class="sn-lbl">Session Notes</div>
     <textarea class="sn-ta" id="sn-ta" placeholder="How did it go…" oninput="saveDayNote(${wk},${dayNum},this.value)">${dn[`${wk}-${dayNum}`]||''}</textarea>
@@ -1176,8 +1200,19 @@ function togComplete(wk,day){
   if(v)c[`${wk}-${day}`]=true;else delete c[`${wk}-${day}`];
   ssp('completedDays',c);
   const btn=document.getElementById('log-btn');
-  btn.textContent=v?'✓ SESSION LOGGED':'LOG SESSION COMPLETE';
-  btn.classList.toggle('logged',v);
+  if(btn){btn.textContent=v?'✓ SESSION LOGGED':'LOG SESSION COMPLETE';btn.classList.toggle('logged',v)}
+  // Update top banner in sync
+  const banner=document.querySelector('.logged-banner');
+  if(v&&!banner){
+    document.getElementById('d-body').insertAdjacentHTML('afterbegin',
+      `<div class="logged-banner">
+        <span class="lb-check">✓</span>
+        <span class="lb-txt">Session Logged</span>
+        <button class="lb-unlog" onclick="togComplete(${wk},${day})">Un-log</button>
+      </div>`);
+  } else if(!v&&banner){
+    banner.remove();
+  }
 }
 
 function saveDayNote(wk,day,val){
