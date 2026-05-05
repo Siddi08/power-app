@@ -391,121 +391,6 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
   font-size:12px;font-weight:600;cursor:pointer;letter-spacing:.04em;margin-top:4px;min-height:36px;
 }
 
-/* ── TRAINING PLAN SCREEN ── */
-.plan-head{padding:16px 16px 12px}
-.plan-head h1{font-size:40px;font-weight:900;letter-spacing:.04em;color:var(--y);line-height:1}
-.plan-sub{font-size:11px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
-
-.plan-tabs{display:flex;background:var(--sf);border-bottom:1px solid var(--bd)}
-.ptt{
-  flex:1;padding:11px 8px;background:none;border:none;border-bottom:2px solid transparent;
-  color:var(--dim);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:color .15s,border-color .15s;
-}
-.ptt.on{color:var(--y);border-bottom-color:var(--y)}
-
-.day-sel{
-  display:flex;overflow-x:auto;scrollbar-width:none;
-  border-bottom:1px solid var(--bd);padding:0 8px;background:var(--sf);
-}
-.day-sel::-webkit-scrollbar{display:none}
-.ds-btn{
-  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:9px 14px;background:none;border:none;border-bottom:2px solid transparent;
-  cursor:pointer;transition:color .15s,border-color .15s;-webkit-tap-highlight-color:transparent;
-}
-.ds-dow{
-  font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;color:var(--dim);
-}
-.ds-btn.today .ds-dow{color:var(--b)}
-.ds-btn.sel .ds-dow{color:var(--y)}
-.ds-btn.sel{border-bottom-color:var(--y)}
-.ds-dot{width:4px;height:4px;border-radius:50%;background:transparent}
-.ds-btn.today .ds-dot{background:var(--b)}
-.ds-btn.sel .ds-dot{background:var(--y)}
-
-.plan-day{padding:12px 16px 0}
-.plan-session{margin-bottom:12px}
-.ps-badge-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.ps-badge-row .tag{font-size:9px;padding:2px 7px}
-
-.plan-info{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
-.pi-title{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700}
-.pi-dur{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;color:var(--b);margin-top:4px}
-.pi-notes{font-size:12px;color:var(--dim);margin-top:4px;line-height:1.5}
-
-.ext{background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
-.ext-head{
-  display:grid;grid-template-columns:1fr 58px 62px 50px;
-  padding:7px 12px;background:var(--sf2);border-bottom:1px solid var(--bd);
-  font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--dim);gap:4px;
-}
-.ext-row{
-  display:grid;grid-template-columns:1fr 58px 62px 50px;
-  padding:10px 12px;border-bottom:1px solid var(--bd);gap:4px;align-items:start;
-}
-.ext-row:last-child{border-bottom:none}
-.ext-nm{font-size:13px;font-weight:500;line-height:1.3}
-.ext-note{font-size:10px;color:var(--dim);margin-top:2px;line-height:1.4}
-.ext-val{
-  font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;
-  color:var(--tx);line-height:1.3;padding-top:1px;
-}
-.ext-rest-btn{
-  font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:var(--b);
-  background:rgba(0,180,255,.12);border:none;border-radius:5px;padding:3px 5px;
-  cursor:pointer;-webkit-tap-highlight-color:transparent;text-align:center;
-}
-.ext-rest-btn:active{opacity:.65}
-
-.plan-coach-note{
-  background:var(--sf2);border-left:3px solid var(--bd);
-  border-radius:0 8px 8px 0;padding:8px 12px;margin-top:6px;
-  font-size:11px;color:var(--dim);line-height:1.5;
-}
-
-.prog-tbl{margin:12px 16px 0;background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
-.prog-tbl-title{
-  padding:10px 14px 8px;border-bottom:1px solid var(--bd);
-  font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
-}
-.prog-tbl-head{
-  display:grid;grid-template-columns:44px repeat(4,1fr);
-  padding:7px 12px;background:var(--sf2);border-bottom:1px solid var(--bd);
-  font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--dim);gap:4px;
-}
-.prog-tbl-row{
-  display:grid;grid-template-columns:44px repeat(4,1fr);
-  padding:9px 12px;border-bottom:1px solid var(--bd);gap:4px;align-items:center;
-}
-.prog-tbl-row:last-child{border-bottom:none}
-.prog-tbl-row.pw-cur{background:rgba(200,255,0,.07)}
-.ptw{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--dim)}
-.ptw.cur{color:var(--y)}
-.ptv{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-align:center;color:var(--tx)}
-.ptv.cur{color:var(--y)}
-
-.prog-rule{
-  margin:8px 16px;background:rgba(200,255,0,.06);border:1px solid rgba(200,255,0,.2);
-  border-radius:8px;padding:10px 12px;font-size:11px;color:var(--dim);line-height:1.55;
-}
-.prog-rule b{color:var(--y)}
-
-.plan-targets{margin:12px 16px 4px;background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
-.plan-targets-title{
-  padding:9px 14px 7px;border-bottom:1px solid var(--bd);
-  font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
-}
-.pt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd)}
-.pt-cell{background:var(--sf);padding:10px 8px;text-align:center}
-.pt-cell-val{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;color:var(--y);line-height:1}
-.pt-cell-lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
-
 .rest-banner{
   position:fixed;bottom:calc(var(--nav) + var(--sb));left:0;right:0;
   background:var(--sf2);border-top:2px solid var(--y);
@@ -521,6 +406,15 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
   font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.04em;
 }
 .rb-skip:active{border-color:var(--y);color:var(--y)}
+
+/* ── REST BUTTON (inline in exercise rows) ── */
+.ex-rest{
+  display:inline-block;margin-top:5px;
+  font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;color:var(--b);
+  background:rgba(0,180,255,.12);border:none;border-radius:5px;padding:3px 9px;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;
+}
+.ex-rest:active{opacity:.65}
 
 /* ── LOGGED BANNER ── */
 .logged-banner{
@@ -639,29 +533,6 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
   <div id="d-body"></div>
 </div>
 
-<!-- PLAN SCREEN -->
-<div id="scr-plan" class="screen">
-  <div class="plan-head">
-    <h1>PLAN</h1>
-    <div class="plan-sub">Weekly Training Plan</div>
-  </div>
-  <div class="plan-tabs">
-    <button class="ptt on" id="ptt-workout" onclick="planSetTab('workout')">Workout</button>
-    <button class="ptt" id="ptt-prog" onclick="planSetTab('prog')">Progression</button>
-  </div>
-  <div class="wk-nav">
-    <button class="wk-arr" id="plan-wk-prev" onclick="planChWk(-1)">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <span class="wk-lbl" id="plan-wk-lbl">WEEK 1</span>
-    <button class="wk-arr" id="plan-wk-next" onclick="planChWk(1)">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
-  </div>
-  <div class="day-sel" id="plan-day-sel"></div>
-  <div id="plan-content"></div>
-</div>
-
 <!-- FLAT FEET WORKOUT SCREEN -->
 <div id="scr-flatfeet" class="detail-screen">
   <div class="det-head">
@@ -702,13 +573,6 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
       <path d="M9 12h6M9 16h4"/>
     </svg>Programs
   </button>
-  <button class="nb" id="nb-plan" onclick="showScr('plan')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M6 5v14M18 5v14"/>
-      <path d="M3 8v8M21 8v8"/>
-      <line x1="6" y1="12" x2="18" y2="12"/>
-    </svg>Plan
-  </button>
 </nav>
 
 <!-- NOTE BOTTOM SHEET -->
@@ -733,6 +597,8 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
 // ── BUILT-IN PROGRAM DATA ─────────────────────────────
 
 function makeTrainingPlanProg(){
+  const PROG='Progression: all reps clean → +2.5kg lower / +1.25kg upper. Failed a set → repeat same weight.';
+  const TARGETS='Targets: 136–170g protein · 7–9 hrs sleep · bodyweight 85kg.';
   return{
     id:'training_plan',
     name:'WEEKLY PLAN',
@@ -741,7 +607,7 @@ function makeTrainingPlanProg(){
     createdAt:0,
     days:[
       {day:1,dow:'MON',title:'Zone 2 + EMOM + PT HIIT',tags:['Cardio'],isRest:false,
-       note:'Zone 2 bike first, then EMOM, then PT HIIT.',
+       note:'Zone 2 bike first, then EMOM, then PT HIIT. '+TARGETS,
        secs:[
         {type:'cardio',lbl:'Zone 2 Bike',exs:[
           {n:'Zone 2 Bike',m:'30–45 min · 60–70% HR max · conversational pace'},
@@ -754,21 +620,21 @@ function makeTrainingPlanProg(){
         ]},
        ]},
       {day:2,dow:'TUE',title:'Strength A + Zone 2 Swim',tags:['Strength','Cardio'],isRest:false,
-       note:'Estimated session: 55–60 min total.',
+       note:'Est. 55–60 min. Zercher: 50→67.5kg · Bench: 50→67.5kg · Row: 45→62.5kg. '+PROG,
        secs:[
         {type:'strength',lbl:'Strength A',exs:[
-          {n:'Zercher Squat',s:4,r:5,m:'50kg · 3 sec descent · 3–4 min rest'},
-          {n:'Bulgarian Split Squat',s:3,r:6,m:'each · BW → 10kg DBs wk3 · rear foot on bench · 2 min rest'},
-          {n:'Walking Lunges',s:3,r:10,m:'each · BW → loaded wk3 · DBs at sides · 2 min rest'},
-          {n:'Goblet Squat',s:3,r:8,m:'16kg KB · tempo: 3 sec down · 90 sec rest'},
-          {n:'Ab Wheel Rollout',s:3,r:8,m:'BW · slow and controlled · 90 sec rest'},
+          {n:'Zercher Squat',s:4,r:5,loads:[50,52.5,55,57.5,60,62.5,65,67.5],rest:210,m:'3 sec descent'},
+          {n:'Bulgarian Split Squat',s:3,r:6,rest:120,m:'each · BW → 10kg DBs wk3 · rear foot on bench'},
+          {n:'Walking Lunges',s:3,r:10,rest:120,m:'each · BW → loaded wk3 · DBs at sides'},
+          {n:'Goblet Squat',s:3,r:8,rest:90,m:'16kg KB · tempo: 3 sec down'},
+          {n:'Ab Wheel Rollout',s:3,r:8,rest:90,m:'BW · slow and controlled'},
         ]},
         {type:'cardio',lbl:'Zone 2 Swim',exs:[
           {n:'Zone 2 Swim',m:'30–45 min · 60–70% HR max after lifting'},
         ]},
        ]},
       {day:3,dow:'WED',title:'Zone 2 + EMOM + PT HIIT',tags:['Cardio'],isRest:false,
-       note:'Zone 2 bike first, then EMOM, then PT HIIT.',
+       note:'Zone 2 bike first, then EMOM, then PT HIIT. '+TARGETS,
        secs:[
         {type:'cardio',lbl:'Zone 2 Bike',exs:[
           {n:'Zone 2 Bike',m:'30–45 min · 60–70% HR max'},
@@ -781,22 +647,22 @@ function makeTrainingPlanProg(){
         ]},
        ]},
       {day:4,dow:'THU',title:'Strength B + Zone 2 Swim',tags:['Strength','Cardio'],isRest:false,
-       note:'Estimated session: 55–60 min total.',
+       note:'Est. 55–60 min. Bench: 50→67.5kg · Row: 45→62.5kg · OHP: 30kg. '+PROG,
        secs:[
         {type:'strength',lbl:'Strength B',exs:[
-          {n:'Barbell Bench Press',s:4,r:5,m:'50kg · controlled · full range · 2–3 min rest'},
-          {n:'Barbell Bent Over Row',s:4,r:5,m:'45kg · overhand grip · chest to bar · 2–3 min rest'},
-          {n:'Overhead Press',s:3,r:6,m:'30kg · strict · no leg drive · 2–3 min rest'},
-          {n:'Pull-ups',s:3,r:6,m:'BW · dead hang · chin over bar · 90 sec rest'},
-          {n:'DB Incline Press',s:3,r:8,m:'17.5kg each · scapular retraction · 2 min rest'},
-          {n:'Band Pull-Aparts',s:3,r:15,m:'Light band · shoulder health · 60 sec rest'},
+          {n:'Barbell Bench Press',s:4,r:5,loads:[50,52.5,55,57.5,60,62.5,65,67.5],rest:150,m:'Controlled · full range'},
+          {n:'Barbell Bent Over Row',s:4,r:5,loads:[45,47.5,50,52.5,55,57.5,60,62.5],rest:150,m:'Overhand grip · chest to bar'},
+          {n:'Overhead Press',s:3,r:6,rest:150,m:'30kg · strict · no leg drive'},
+          {n:'Pull-ups',s:3,r:6,rest:90,m:'BW · dead hang · chin over bar'},
+          {n:'DB Incline Press',s:3,r:8,rest:120,m:'17.5kg each · scapular retraction'},
+          {n:'Band Pull-Aparts',s:3,r:15,rest:60,m:'Light band · shoulder health'},
         ]},
         {type:'cardio',lbl:'Zone 2 Swim',exs:[
           {n:'Zone 2 Swim',m:'30–45 min · 60–70% HR max after lifting'},
         ]},
        ]},
       {day:5,dow:'FRI',title:'Zone 2 Run + Beep Test + Tabata',tags:['Cardio'],isRest:false,
-       note:'Beep test always before Tabata. Maximal effort on both.',
+       note:'Beep test always before Tabata — maximal effort on both. '+TARGETS,
        secs:[
         {type:'cardio',lbl:'Zone 2 Run',exs:[
           {n:'Zone 2 Run',m:'30–45 min · 60–70% HR max'},
@@ -809,22 +675,22 @@ function makeTrainingPlanProg(){
         ]},
        ]},
       {day:6,dow:'SAT',title:'Strength C + Zone 2 Swim',tags:['Strength','Cardio'],isRest:false,
-       note:'Estimated session: 60–65 min total.',
+       note:'Est. 60–65 min. Deadlift: 60→77.5kg · Hip Thrust: 60kg. '+PROG,
        secs:[
         {type:'strength',lbl:'Strength C',exs:[
-          {n:'Conventional Deadlift',s:4,r:5,m:'60kg · brace hard · hinge not squat · 3–4 min rest'},
-          {n:'Romanian Deadlift',s:3,r:6,m:'55kg · overhand grip · slow eccentric · 3 min rest'},
-          {n:'Barbell Hip Thrust',s:3,r:8,m:'60kg · shoulders on bench · full glute squeeze · 3 min rest'},
-          {n:'Single Leg RDL',s:3,r:6,m:'each · 15kg DB · balance + hamstring · 2 min rest'},
-          {n:'Inverted Row',s:3,r:8,m:'BW · barbell in rack at hip height · 90 sec rest'},
-          {n:'Plank',s:3,m:'45 sec · BW · posterior pelvic tilt · 90 sec rest'},
+          {n:'Conventional Deadlift',s:4,r:5,loads:[60,62.5,65,67.5,70,72.5,75,77.5],rest:210,m:'Brace hard · hinge not squat'},
+          {n:'Romanian Deadlift',s:3,r:6,rest:180,m:'55kg · overhand grip · slow eccentric'},
+          {n:'Barbell Hip Thrust',s:3,r:8,rest:180,m:'60kg · shoulders on bench · full glute squeeze'},
+          {n:'Single Leg RDL',s:3,r:6,rest:120,m:'each · 15kg DB · balance + hamstring'},
+          {n:'Inverted Row',s:3,r:8,rest:90,m:'BW · barbell in rack at hip height'},
+          {n:'Plank',s:3,m:'45 sec · BW · posterior pelvic tilt',rest:90},
         ]},
         {type:'cardio',lbl:'Zone 2 Swim',exs:[
           {n:'Zone 2 Swim',m:'30–45 min · 60–70% HR max after lifting'},
         ]},
        ]},
       {day:7,dow:'SUN',title:'Easy Zone 2',tags:['Cardio'],isRest:false,
-       note:'Genuine recovery. Conversational pace only.',
+       note:'Genuine recovery. Conversational pace only. '+TARGETS,
        secs:[
         {type:'cardio',lbl:'Zone 2',exs:[
           {n:'Easy Zone 2 Run or Swim',m:'30 min max · conversational pace only'},
@@ -921,16 +787,11 @@ function initPrograms(){
   let progs=ls('power_programs')||[];
   // Remove old built-in programs, keep any user-created ones
   progs=progs.filter(p=>!OLD_IDS.includes(p.id));
-  // Add training plan if not already present
-  if(!progs.find(p=>p.id==='training_plan')){
-    progs.unshift(makeTrainingPlanProg());
-    ss('power_programs',progs);
-  }
-  // Add flat feet program if not already present
-  if(!progs.find(p=>p.id==='flat_feet_fix')){
-    progs.push(makeFlatFeetProg());
-    ss('power_programs',progs);
-  }
+  // Always refresh built-in data from source code so new fields propagate
+  const tpIdx=progs.findIndex(p=>p.id==='training_plan');
+  if(tpIdx>=0){progs[tpIdx]=makeTrainingPlanProg();}else{progs.unshift(makeTrainingPlanProg());}
+  if(!progs.find(p=>p.id==='flat_feet_fix')){progs.push(makeFlatFeetProg());}
+  ss('power_programs',progs);
   // Fix active program if it pointed at a now-removed program
   const activeId=localStorage.getItem('power_active_program');
   if(!activeId||OLD_IDS.includes(activeId)||!progs.find(p=>p.id===activeId)){
@@ -1027,7 +888,6 @@ function showScr(name){
   if(name==='week')renderWeek();
   if(name==='progress')renderProgress();
   if(name==='programs')renderPrograms();
-  if(name==='plan')renderPlan();
 }
 
 function openDay(dayNum){
@@ -1101,10 +961,14 @@ function renderWeek(){
 // ── DAY RENDER ────────────────────────────────────────
 function phase(wk){return wk<=3?'BUILD':wk<=6?'LOAD':'EXPRESS'}
 
-function metaStr(ex){
+function metaStr(ex,wk){
   let m='';
   if(ex.s&&ex.r)m=ex.s+'×'+ex.r;
   else if(ex.s)m=ex.s+' sets';
+  if(ex.loads){
+    const load=ex.loads[Math.min((wk||1)-1,ex.loads.length-1)];
+    m+=(m?' · ':'')+load+'kg';
+  }
   if(ex.m)m+=(m?' · ':'')+ex.m;
   return m;
 }
@@ -1150,12 +1014,13 @@ function renderDay(wk,dayNum){
         const i=idx++;
         const ck=!!checks[`${wk}-${dayNum}-${i}`];
         const nt=notes[`${wk}-${dayNum}-${i}`]||'';
-        const meta=metaStr(ex);
+        const meta=metaStr(ex,wk);
         html+=`<div class="ex-row" id="er${i}">
           <button class="chk${ck?' on':''}" onclick="togEx(${wk},${dayNum},${i})"></button>
           <div class="ex-info">
             <div class="ex-nm${ck?' done':''}" id="en${i}">${ex.n}</div>
             ${meta?`<div class="ex-mt">${meta}</div>`:''}
+            ${ex.rest?`<button class="ex-rest" onclick="startRest(${ex.rest})">${fmtRest(ex.rest)} rest</button>`:''}
             <div class="ex-np" id="ep${i}" style="${nt?'':'display:none'}">${nt}</div>
           </div>
           <button class="notebtn${nt?' has':''}" id="nb${i}" onclick="sheetOpen(${wk},${dayNum},${i})">
@@ -1541,227 +1406,9 @@ function saveProgSheet(){
   if(getActiveProgramId()===editData.id)renderWeek();
 }
 
-// ── TRAINING PLAN DATA ───────────────────────────────
-const PLAN_DAYS=[
-  {dow:'MON',label:'Monday',sessions:[
-    {type:'zone2',badge:'ZONE 2',title:'Zone 2 Bike',duration:'30–45 min',
-     notes:'60–70% HR max · conversational pace'},
-    {type:'emom',badge:'EMOM',title:'EMOM 16 min',duration:'16 min',
-     notes:'Your own protocol'},
-    {type:'pt',badge:'PT HIIT',title:'PT HIIT',duration:'PT duration',
-     notes:'Strength circuit'},
-  ]},
-  {dow:'TUE',label:'Tuesday',sessions:[
-    {type:'strength',badge:'STRENGTH A',title:'Strength A',
-     note:'Estimated session: 55–60 min total',
-     exs:[
-      {n:'Zercher Squat',s:4,r:'5',load:[50,52.5,55,57.5,60,62.5,65,67.5],rest:210,m:'3 sec descent'},
-      {n:'Bulgarian Split Squat',s:3,r:'6 each',load:'BW → 10kg DBs wk3',rest:120,m:'Rear foot on bench'},
-      {n:'Walking Lunges',s:3,r:'10 each',load:'BW → loaded wk3',rest:120,m:'DBs at sides'},
-      {n:'Goblet Squat',s:3,r:'8',load:'16kg KB',rest:90,m:'Tempo: 3 sec down'},
-      {n:'Ab Wheel Rollout',s:3,r:'8',load:'BW',rest:90,m:'Slow and controlled'},
-     ]},
-    {type:'zone2',badge:'ZONE 2',title:'Zone 2 Swim',duration:'30–45 min',
-     notes:'60–70% HR max after lifting'},
-  ]},
-  {dow:'WED',label:'Wednesday',sessions:[
-    {type:'zone2',badge:'ZONE 2',title:'Zone 2 Bike',duration:'30–45 min',
-     notes:'60–70% HR max'},
-    {type:'emom',badge:'EMOM',title:'EMOM 16 min',duration:'16 min',
-     notes:'Your own protocol'},
-    {type:'pt',badge:'PT HIIT',title:'PT HIIT',duration:'PT duration',
-     notes:'Running HIIT'},
-  ]},
-  {dow:'THU',label:'Thursday',sessions:[
-    {type:'strength',badge:'STRENGTH B',title:'Strength B',
-     note:'Estimated session: 55–60 min total',
-     exs:[
-      {n:'Barbell Bench Press',s:4,r:'5',load:[50,52.5,55,57.5,60,62.5,65,67.5],rest:150,m:'Controlled · full range'},
-      {n:'Barbell Bent Over Row',s:4,r:'5',load:[45,47.5,50,52.5,55,57.5,60,62.5],rest:150,m:'Overhand grip · chest to bar'},
-      {n:'Overhead Press',s:3,r:'6',load:'30kg',rest:150,m:'Strict · no leg drive'},
-      {n:'Pull-ups',s:3,r:'6–8',load:'BW',rest:90,m:'Dead hang · chin over bar'},
-      {n:'DB Incline Press',s:3,r:'8',load:'17.5kg each',rest:120,m:'Scapular retraction throughout'},
-      {n:'Band Pull-Aparts',s:3,r:'15',load:'Light band',rest:60,m:'Shoulder health — non-negotiable'},
-     ]},
-    {type:'zone2',badge:'ZONE 2',title:'Zone 2 Swim',duration:'30–45 min',
-     notes:'60–70% HR max after lifting'},
-  ]},
-  {dow:'FRI',label:'Friday',sessions:[
-    {type:'zone2',badge:'ZONE 2',title:'Zone 2 Run',duration:'30–45 min',
-     notes:'60–70% HR max'},
-    {type:'beep',badge:'BEEP TEST',title:'Beep Test',duration:'User protocol',
-     notes:'Maximal effort — always before Tabata'},
-    {type:'tabata',badge:'TABATA',title:'Tabata 16 min',duration:'16 min',
-     notes:'Your protocol — finisher'},
-  ]},
-  {dow:'SAT',label:'Saturday',sessions:[
-    {type:'strength',badge:'STRENGTH C',title:'Strength C',
-     note:'Estimated session: 60–65 min total',
-     exs:[
-      {n:'Conventional Deadlift',s:4,r:'5',load:[60,62.5,65,67.5,70,72.5,75,77.5],rest:210,m:'Brace hard · hinge not squat'},
-      {n:'Romanian Deadlift',s:3,r:'6',load:'55kg',rest:180,m:'Overhand grip · slow eccentric'},
-      {n:'Barbell Hip Thrust',s:3,r:'8',load:'60kg',rest:180,m:'Shoulders on bench · full glute squeeze'},
-      {n:'Single Leg RDL',s:3,r:'6 each',load:'15kg DB each',rest:120,m:'Balance + hamstring builder'},
-      {n:'Inverted Row',s:3,r:'8',load:'BW',rest:90,m:'Barbell in rack at hip height'},
-      {n:'Plank',s:3,r:'45 sec',load:'BW',rest:90,m:'Posterior pelvic tilt · not arched'},
-     ]},
-    {type:'zone2',badge:'ZONE 2',title:'Zone 2 Swim',duration:'30–45 min',
-     notes:'60–70% HR max after lifting'},
-  ]},
-  {dow:'SUN',label:'Sunday',sessions:[
-    {type:'zone2',badge:'ZONE 2',title:'Easy Zone 2 Run or Swim',duration:'30 min max',
-     notes:'Genuine recovery · conversational pace only'},
-  ]},
-];
-
-const PLAN_PROG=[
-  {name:'Zercher',loads:[50,52.5,55,57.5,60,62.5,65,67.5]},
-  {name:'Deadlift',loads:[60,62.5,65,67.5,70,72.5,75,77.5]},
-  {name:'Bench',loads:[50,52.5,55,57.5,60,62.5,65,67.5]},
-  {name:'Row',loads:[45,47.5,50,52.5,55,57.5,60,62.5]},
-];
-
-// ── PLAN STATE ────────────────────────────────────────
-let planDayIdx=0,planActiveTab='workout';
-let restTid=null,restSecs=0;
-
-function getPlanWk(){return parseInt(localStorage.getItem('plan_wk')||'1')}
-function setPlanWk(w){localStorage.setItem('plan_wk',String(Math.max(1,Math.min(8,w))))}
-function getTodayIdx(){const d=new Date().getDay();return d===0?6:d-1}
-
-function planChWk(d){
-  setPlanWk(getPlanWk()+d);
-  renderPlan();
-}
-
-function planSetTab(t){
-  planActiveTab=t;
-  document.getElementById('ptt-workout').classList.toggle('on',t==='workout');
-  document.getElementById('ptt-prog').classList.toggle('on',t==='prog');
-  document.getElementById('plan-day-sel').style.display=t==='workout'?'flex':'none';
-  renderPlanContent();
-}
-
-function planSetDay(i){
-  planDayIdx=i;
-  renderPlanDaySel();
-  renderPlanContent();
-}
-
-function renderPlan(){
-  const wk=getPlanWk();
-  document.getElementById('plan-wk-lbl').textContent='WEEK '+wk;
-  document.getElementById('plan-wk-prev').disabled=wk<=1;
-  document.getElementById('plan-wk-next').disabled=wk>=8;
-  document.getElementById('plan-day-sel').style.display=planActiveTab==='workout'?'flex':'none';
-  renderPlanDaySel();
-  renderPlanContent();
-}
-
-function renderPlanDaySel(){
-  const today=getTodayIdx();
-  document.getElementById('plan-day-sel').innerHTML=PLAN_DAYS.map((d,i)=>{
-    let cls='';
-    if(i===planDayIdx)cls+='sel ';
-    if(i===today)cls+='today';
-    return`<button class="ds-btn ${cls}" onclick="planSetDay(${i})">
-      <span class="ds-dow">${d.dow}</span>
-      <span class="ds-dot"></span>
-    </button>`;
-  }).join('');
-}
-
-function planTagClass(type){
-  return{zone2:'tc',strength:'ts',emom:'tp',hiit:'tp',pt:'ts',beep:'tp',tabata:'tp'}[type]||'ts';
-}
-
-function fmtRest(secs){
-  const m=Math.floor(secs/60),s=secs%60;
-  return`${m}:${String(s).padStart(2,'0')}`;
-}
-
-function getLoad(ex,wk){
-  if(Array.isArray(ex.load))return(ex.load[wk-1]??ex.load[0])+'kg';
-  return ex.load||'—';
-}
-
-function renderPlanContent(){
-  planActiveTab==='workout'?renderPlanWorkout():renderPlanProg();
-}
-
-function renderPlanWorkout(){
-  const wk=getPlanWk();
-  const day=PLAN_DAYS[planDayIdx];
-  let html='<div class="plan-day">';
-  day.sessions.forEach(sess=>{
-    html+=`<div class="plan-session">
-      <div class="ps-badge-row"><span class="tag ${planTagClass(sess.type)}">${sess.badge}</span></div>`;
-    if(sess.exs){
-      html+=`<div class="ext">
-        <div class="ext-head"><span>Exercise</span><span>Sets×Reps</span><span>Load</span><span>Rest</span></div>`;
-      sess.exs.forEach(ex=>{
-        html+=`<div class="ext-row">
-          <div class="ext-nm">${ex.n}<div class="ext-note">${ex.m||''}</div></div>
-          <div class="ext-val">${ex.s}×${ex.r}</div>
-          <div class="ext-val">${getLoad(ex,wk)}</div>
-          <button class="ext-rest-btn" onclick="startRest(${ex.rest})">${fmtRest(ex.rest)}</button>
-        </div>`;
-      });
-      html+=`</div>`;
-      if(sess.note)html+=`<div class="plan-coach-note">${sess.note}</div>`;
-    } else {
-      html+=`<div class="plan-info">
-        <div class="pi-title">${sess.title}</div>
-        <div class="pi-dur">${sess.duration}</div>
-        <div class="pi-notes">${sess.notes}</div>
-      </div>`;
-    }
-    html+=`</div>`;
-  });
-  html+=`</div>
-  <div class="plan-targets">
-    <div class="plan-targets-title">Daily Targets</div>
-    <div class="pt-grid">
-      <div class="pt-cell"><div class="pt-cell-val">136–170g</div><div class="pt-cell-lbl">Protein</div></div>
-      <div class="pt-cell"><div class="pt-cell-val">7–9 hrs</div><div class="pt-cell-lbl">Sleep</div></div>
-      <div class="pt-cell"><div class="pt-cell-val">+2.5 / +1.25</div><div class="pt-cell-lbl">Lower / Upper kg</div></div>
-    </div>
-  </div>
-  <div style="height:8px"></div>`;
-  document.getElementById('plan-content').innerHTML=html;
-}
-
-function renderPlanProg(){
-  const wk=getPlanWk();
-  let html=`<div class="prog-tbl">
-    <div class="prog-tbl-title">8-Week Linear Progression · Main Lifts (kg)</div>
-    <div class="prog-tbl-head">
-      <span>Week</span>${PLAN_PROG.map(l=>`<span>${l.name}</span>`).join('')}
-    </div>`;
-  for(let w=1;w<=8;w++){
-    const cur=w===wk;
-    html+=`<div class="prog-tbl-row${cur?' pw-cur':''}">
-      <div class="ptw${cur?' cur':''}">WK${w}</div>
-      ${PLAN_PROG.map(l=>`<div class="ptv${cur?' cur':''}">${l.loads[w-1]}</div>`).join('')}
-    </div>`;
-  }
-  html+=`</div>
-  <div class="prog-rule">
-    <b>Progression rule:</b> All reps completed cleanly → add <b>2.5kg</b> lower body / <b>1.25kg</b> upper body next session. Failed a set → repeat same weight.
-  </div>
-  <div class="plan-targets" style="margin-top:12px">
-    <div class="plan-targets-title">Daily Targets</div>
-    <div class="pt-grid">
-      <div class="pt-cell"><div class="pt-cell-val">136–170g</div><div class="pt-cell-lbl">Protein</div></div>
-      <div class="pt-cell"><div class="pt-cell-val">7–9 hrs</div><div class="pt-cell-lbl">Sleep</div></div>
-      <div class="pt-cell"><div class="pt-cell-val">85kg</div><div class="pt-cell-lbl">Bodyweight</div></div>
-    </div>
-  </div>
-  <div style="height:8px"></div>`;
-  document.getElementById('plan-content').innerHTML=html;
-}
-
 // ── REST TIMER ────────────────────────────────────────
+let restTid=null,restSecs=0;
+function fmtRest(secs){const m=Math.floor(secs/60),s=secs%60;return`${m}:${String(s).padStart(2,'0')}`}
 function startRest(secs){
   if(restTid)clearInterval(restTid);
   restSecs=secs;
@@ -1994,7 +1641,6 @@ const _lw=parseInt(localStorage.getItem(getActiveProgramId()+'_lastWeek')||'1');
 curWk=_lw>=1?_lw:1;
 ensureStartDate();
 curWk=calcCurrentWeek();
-planDayIdx=getTodayIdx();
 renderWeek();
 
 if('serviceWorker' in navigator){
