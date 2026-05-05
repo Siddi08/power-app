@@ -107,6 +107,8 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
 .dc:active{transform:scale(.96)}
 .dc.done{border-color:var(--y)}
 .dc.done::after{content:'✓';position:absolute;top:6px;right:7px;color:var(--y);font-size:13px;font-weight:700}
+.dc.today:not(.done){border-color:var(--b)}
+.dc.today .dc-dow{color:var(--b)}
 .dc.rest{opacity:.4;cursor:default;pointer-events:none}
 .dc.rest:active{transform:none}
 .dc-dow{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
@@ -1008,6 +1010,16 @@ function goBack(){
 // ── WEEK RENDER ───────────────────────────────────────
 function chWk(d){curWk=Math.max(1,curWk+d);renderWeek()}
 
+function getTodayDow(){
+  return['SUN','MON','TUE','WED','THU','FRI','SAT'][new Date().getDay()];
+}
+
+function getTodayDayNum(){
+  const dow=getTodayDow();
+  const day=getActiveProgram().days.find(d=>d.dow===dow);
+  return day?day.day:1;
+}
+
 function tagClass(t){
   const m={Strength:'s',Cardio:'c',Power:'p',Rest:'r',Recovery:'r',Mobility:'m'};
   return 't'+(m[t]||'r');
@@ -1025,6 +1037,7 @@ function renderWeek(){
   document.getElementById('sv-str').textContent=streak;
   document.getElementById('sv-tot').textContent=total;
   const completed=lsp('completedDays');
+  const todayDow=getTodayDow();
   document.getElementById('day-grid').innerHTML=days.map(d=>{
     if(d.isRest){
       return`<div class="dc rest">
@@ -1035,8 +1048,9 @@ function renderWeek(){
       </div>`;
     }
     const done=!!completed[curWk+'-'+d.day];
+    const isToday=d.dow===todayDow;
     const tags=d.tags.map(t=>`<span class="tag ${tagClass(t)}">${t}</span>`).join('');
-    return`<div class="dc${done?' done':''}" onclick="openDay(${d.day})">
+    return`<div class="dc${done?' done':''}${isToday?' today':''}" onclick="openDay(${d.day})">
       <div class="dc-dow">${d.dow}</div>
       <div class="dc-n">Day ${d.day}</div>
       <div class="dc-t">${d.title}</div>
@@ -1721,7 +1735,7 @@ function ffOpenWorkout(dayNum){
 function ffStartFromPrograms(){
   prevScr=curScr;
   document.getElementById('scr-'+curScr).classList.remove('active');
-  ffOpenWorkout(1);
+  ffOpenWorkout(getTodayDayNum());
 }
 
 function closeFlatFeet(){
