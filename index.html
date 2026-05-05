@@ -1258,11 +1258,25 @@ function renderProgress(){renderHeatmap();renderLogs()}
 
 function renderHeatmap(){
   const c=lsp('completedDays');
+  const prog=getActiveProgram();
+  // Map program day number → calendar column (Sun=0 … Sat=6)
+  const DOW_COL={SUN:0,MON:1,TUE:2,WED:3,THU:4,FRI:5,SAT:6};
+  const dayToCol={};
+  prog.days.forEach(d=>{dayToCol[d.day]=DOW_COL[d.dow]??d.day-1});
+
   const labels=['S','M','T','W','T','F','S'];
   let html=labels.map(l=>`<div class="hc hc-lbl">${l}</div>`).join('');
-  for(let w=1;w<=10;w++)for(let d=1;d<=7;d++){
-    const done=!!c[`${w}-${d}`];
-    html+=`<div class="hc${done?' done':''}" title="W${w}D${d}"></div>`;
+  for(let w=1;w<=10;w++){
+    const row=new Array(7).fill(null);
+    prog.days.forEach(d=>{
+      const col=dayToCol[d.day];
+      if(col!==undefined)row[col]=!!c[`${w}-${d.day}`];
+    });
+    row.forEach((done,col)=>{
+      html+=done===null
+        ?`<div class="hc"></div>`
+        :`<div class="hc${done?' done':''}" title="W${w} ${labels[col]}"></div>`;
+    });
   }
   document.getElementById('heatmap').innerHTML=html;
 }
