@@ -528,6 +528,52 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
   font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.04em;
 }
 .rb-skip:active{border-color:var(--y);color:var(--y)}
+
+/* ── FLAT FEET FIX ── */
+.ff-dots{display:flex;gap:8px;padding:16px 16px 0;justify-content:center}
+.ff-dot{width:10px;height:10px;border-radius:50%;background:var(--bd);flex-shrink:0}
+.ff-dot.done{background:var(--y)}
+.ff-dot.cur{background:var(--y);box-shadow:0 0 0 4px rgba(200,255,0,.2)}
+.ff-target{padding:10px 16px 0;font-size:11px;color:var(--b);text-transform:uppercase;letter-spacing:.1em}
+.ff-timer-wrap{
+  margin:14px 16px;background:var(--sf);border:1px solid var(--bd);
+  border-radius:12px;padding:20px 16px;text-align:center;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;transition:border-color .15s;
+}
+.ff-timer-wrap:active{opacity:.8}
+.ff-timer-wrap.running{border-color:var(--y)}
+.ff-timer-lbl{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.ff-timer-val{font-family:'Barlow Condensed',sans-serif;font-size:64px;font-weight:800;color:var(--y);line-height:1}
+.ff-timer-hint{font-size:11px;color:var(--dim);margin-top:8px}
+.ff-sets-wrap{margin:0 16px 12px}
+.ff-sets-lbl{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.ff-sets-row{display:flex;gap:8px}
+.ff-set-btn{
+  flex:1;padding:12px 6px;background:var(--sf);border:1px solid var(--bd);
+  border-radius:8px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.04em;
+  text-align:center;transition:all .15s;-webkit-tap-highlight-color:transparent;
+}
+.ff-set-btn:active{opacity:.75}
+.ff-set-btn.done{background:var(--y);border-color:var(--y);color:var(--bg)}
+.ff-steps{margin:0 16px 12px;background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.ff-steps-lbl{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:10px 14px 8px;border-bottom:1px solid var(--bd)}
+.ff-step{display:flex;gap:10px;padding:9px 14px;font-size:13px;color:var(--tx);line-height:1.5;border-bottom:1px solid var(--bd)}
+.ff-step:last-child{border-bottom:none}
+.ff-step-n{color:var(--y);font-family:'Barlow Condensed',sans-serif;font-weight:700;min-width:16px;flex-shrink:0;padding-top:1px}
+.ff-tip{margin:0 16px 16px;background:rgba(0,180,255,.08);border:1px solid rgba(0,180,255,.2);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--dim);line-height:1.55}
+.ff-tip b{color:var(--b)}
+.ff-complete{padding:24px 16px}
+.ff-complete-icon{font-size:52px;text-align:center;margin-bottom:14px}
+.ff-complete-title{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:900;color:var(--y);text-align:center;letter-spacing:.04em}
+.ff-complete-sub{font-size:13px;color:var(--dim);text-align:center;margin-top:4px;margin-bottom:24px;line-height:1.5}
+.ff-sched{background:var(--sf);border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.ff-sched-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:10px 14px 8px;border-bottom:1px solid var(--bd)}
+.ff-sched-item{padding:10px 14px;border-bottom:1px solid var(--bd);display:flex;gap:10px;align-items:flex-start}
+.ff-sched-item:last-child{border-bottom:none}
+.ff-sched-dot{width:6px;height:6px;border-radius:50%;background:var(--y);flex-shrink:0;margin-top:5px}
+.ff-sched-txt{font-size:13px;line-height:1.45;color:var(--tx)}
+.ff-sched-txt b{color:var(--y)}
 </style>
 </head>
 <body>
@@ -623,6 +669,18 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
   </div>
   <div class="day-sel" id="plan-day-sel"></div>
   <div id="plan-content"></div>
+</div>
+
+<!-- FLAT FEET WORKOUT SCREEN -->
+<div id="scr-flatfeet" class="detail-screen">
+  <div class="det-head">
+    <button class="back" onclick="closeFlatFeet()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg><span id="ff-back-lbl">Week</span>
+    </button>
+    <div class="det-num" id="ff-num">Exercise 1 of 4</div>
+    <div class="det-title" id="ff-name">Ball Rolling</div>
+  </div>
+  <div id="ff-body"></div>
 </div>
 
 <!-- REST TIMER BANNER -->
@@ -786,6 +844,30 @@ function makeTrainingPlanProg(){
 }
 
 
+function makeFlatFeetProg(){
+  const DOWS=['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  return{
+    id:'flat_feet_fix',
+    name:'FLAT FEET FIX',
+    subtitle:'Arch Rehabilitation · Daily Protocol',
+    isBuiltIn:true,
+    createdAt:0,
+    days:DOWS.map((dow,i)=>({
+      day:i+1,dow,
+      title:'Arch Rehab Session',
+      tags:['Mobility'],
+      isRest:false,
+      secs:[{type:'mobility',lbl:'Flat Feet Protocol',exs:[
+        {n:'Ball Rolling',m:'2 × 2 min per foot'},
+        {n:'Short Foot',m:'3 × 10 reps · 5 sec hold'},
+        {n:'Calf Raises',m:'3 × 15 reps · 45 sec rest'},
+        {n:'Balance Hold',m:'3 × 30 sec per leg'},
+      ]}]
+    }))
+  };
+}
+
+
 // Original wrist data for the detail screen (unchanged)
 const WRIST={secs:[
   {type:"accessory",lbl:"Mobility — Daily",exs:[
@@ -813,6 +895,48 @@ const METRICS=[
   {k:"runDist",l:"Run Distance",u:"km"},
 ];
 
+const FF_EXS=[
+  {name:'Ball Rolling',target:'Plantar fascia, mechanoreceptor activation',
+   timerSecs:120,timerLbl:'2 min per foot',sets:2,
+   steps:['Sit in a chair. Place vibration ball under arch.',
+          'Roll slowly heel to ball of foot.',
+          'Pause on tight spots for 20–30 seconds.',
+          'Focus extra time on inner arch.',
+          'Switch feet.'],
+   tip:'Start seated, progress to partial standing weight after 2 weeks.'},
+  {name:'Short Foot',target:'Intrinsic foot muscles, arch activation',
+   timerSecs:5,timerLbl:'5 sec hold',sets:3,reps:10,
+   steps:['Sit or stand with foot flat.',
+          'Drag ball of foot toward heel without curling toes.',
+          'Feel arch lift slightly.',
+          'Hold 5 seconds, fully relax.',
+          '10 reps per foot.'],
+   tip:'No toe curling — if toes scrunch, wrong muscles. Focus on arch lifting only.'},
+  {name:'Calf Raises',target:'Tibialis posterior, arch support tendon',
+   timerSecs:45,timerLbl:'45 sec rest',sets:3,reps:15,
+   steps:['Stand feet hip-width, near wall for balance.',
+          'Rise onto balls of feet over 2 seconds.',
+          'Hold 1 second at top.',
+          'Lower slowly over 3 seconds.',
+          'Progress to single leg at week 3–4.'],
+   tip:'Slow lowering is where the tibialis posterior strengthening actually happens.'},
+  {name:'Balance Hold',target:'Proprioception, neuromuscular control',
+   timerSecs:30,timerLbl:'30 sec per leg',sets:3,
+   steps:['Stand on one foot near wall.',
+          'Spread all five toes wide.',
+          'Maintain arch — don\'t let it collapse.',
+          'Hold 30 seconds, switch.',
+          'Progress: eyes closed at week 2, folded towel underfoot at week 4.'],
+   tip:'Trains automatic arch self-correction during walking.'},
+];
+
+const FF_SCHED=[
+  {text:'<b>Daily:</b> Ball rolling + short foot'},
+  {text:'<b>Daily:</b> Calf raises, progress to single leg'},
+  {text:'<b>Week 4:</b> Add single-leg balance on uneven surface'},
+  {text:'<b>Month 3:</b> Re-test arch height standing vs sitting'},
+];
+
 // ── STORAGE ──────────────────────────────────────────
 const ls=(k,d=null)=>{try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d}catch{return d}};
 const ss=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
@@ -826,6 +950,11 @@ function initPrograms(){
   // Add training plan if not already present
   if(!progs.find(p=>p.id==='training_plan')){
     progs.unshift(makeTrainingPlanProg());
+    ss('power_programs',progs);
+  }
+  // Add flat feet program if not already present
+  if(!progs.find(p=>p.id==='flat_feet_fix')){
+    progs.push(makeFlatFeetProg());
     ss('power_programs',progs);
   }
   // Fix active program if it pointed at a now-removed program
@@ -908,6 +1037,10 @@ function showScr(name){
 function openDay(dayNum){
   prevScr=curScr;
   document.getElementById('scr-'+curScr).classList.remove('active');
+  if(getActiveProgram().id==='flat_feet_fix'){
+    ffOpenWorkout(dayNum);
+    return;
+  }
   renderDay(curWk,dayNum);
   document.getElementById('scr-day').classList.add('active');
 }
@@ -1207,13 +1340,15 @@ function renderPrograms(){
     const isActive=p.id===activeId;
     const completed=Object.keys(lspFor(p.id,'completedDays')).length;
     const canDelete=!isActive&&!p.isBuiltIn;
+    const isFlatFeet=p.id==='flat_feet_fix';
     html+=`<div class="pc${isActive?' active-prog':''}" ${!isActive?`onclick="switchProgram('${p.id}')"`:''}>
       ${isActive?'<div class="pc-badge">ACTIVE</div>':''}
       <div class="pc-name">${p.name}</div>
       ${p.subtitle?`<div class="pc-note">${p.subtitle}</div>`:''}
       <div class="pc-stats">${completed} session${completed!==1?'s':''} logged</div>
       <div class="pc-foot">
-        <button class="pc-edit-btn" onclick="editProgram('${p.id}');event.stopPropagation()">✏️ Edit</button>
+        ${isFlatFeet&&isActive?`<button class="pc-edit-btn" style="color:var(--y);border-color:var(--y)" onclick="ffStartFromPrograms();event.stopPropagation()">▶ Start Session</button>`:''}
+        ${!isFlatFeet?`<button class="pc-edit-btn" onclick="editProgram('${p.id}');event.stopPropagation()">✏️ Edit</button>`:''}
         ${canDelete?`<button class="pc-del-btn" onclick="deleteProgram('${p.id}');event.stopPropagation()">🗑 Delete</button>`:''}
       </div>
     </div>`;
@@ -1653,6 +1788,172 @@ function updRest(){
 function skipRest(){
   if(restTid){clearInterval(restTid);restTid=null}
   document.getElementById('rest-banner').classList.remove('on');
+}
+
+// ── FLAT FEET FIX ─────────────────────────────────────
+let ffExIdx=0;
+let ffSetsData=[];
+let ffTimerSecs=0;
+let ffTimerRunning=false;
+let ffTimerTid=null;
+let ffDayNum=1;
+
+function ffOpenWorkout(dayNum){
+  ffDayNum=dayNum||1;
+  ffExIdx=0;
+  ffSetsData=FF_EXS.map(ex=>Array(ex.sets).fill(false));
+  ffStopTimer();
+  document.getElementById('ff-back-lbl').textContent=prevScr==='programs'?'Programs':'Week';
+  renderFlatFeetEx();
+  document.getElementById('scr-flatfeet').classList.add('active');
+}
+
+function ffStartFromPrograms(){
+  prevScr=curScr;
+  document.getElementById('scr-'+curScr).classList.remove('active');
+  ffOpenWorkout(1);
+}
+
+function closeFlatFeet(){
+  ffStopTimer();
+  document.getElementById('scr-flatfeet').classList.remove('active');
+  document.getElementById('scr-'+prevScr).classList.add('active');
+  if(prevScr==='week')renderWeek();
+  if(prevScr==='programs')renderPrograms();
+}
+
+function renderFlatFeetEx(){
+  const ex=FF_EXS[ffExIdx];
+  const total=FF_EXS.length;
+  document.getElementById('ff-num').textContent='Exercise '+(ffExIdx+1)+' of '+total;
+  document.getElementById('ff-name').textContent=ex.name;
+
+  ffTimerSecs=ex.timerSecs;
+  ffTimerRunning=false;
+
+  const dots=FF_EXS.map((_,i)=>`<div class="ff-dot${i<ffExIdx?' done':i===ffExIdx?' cur':''}"></div>`).join('');
+
+  const setsRow=ffSetsData[ffExIdx].map((done,i)=>`<button class="ff-set-btn${done?' done':''}" onclick="ffToggleSet(${i})">Set ${i+1}${done?' ✓':''}</button>`).join('');
+
+  const meta=[];
+  if(ex.sets&&ex.reps)meta.push(ex.sets+'×'+ex.reps+' reps');
+  else if(ex.sets)meta.push(ex.sets+' sets');
+  meta.push(ex.timerLbl);
+
+  const stepsHtml=ex.steps.map((s,i)=>`<div class="ff-step"><span class="ff-step-n">${i+1}</span><span>${s}</span></div>`).join('');
+
+  const isLast=ffExIdx===total-1;
+
+  document.getElementById('ff-body').innerHTML=`
+    <div class="ff-dots">${dots}</div>
+    <div class="ff-target">${ex.target}</div>
+    <div class="ff-timer-wrap" id="ff-timer-wrap" onclick="ffToggleTimer()">
+      <div class="ff-timer-lbl" id="ff-timer-lbl">${ex.timerLbl} · Tap to start</div>
+      <div class="ff-timer-val" id="ff-timer-val">${fmtRest(ex.timerSecs)}</div>
+      <div class="ff-timer-hint" id="ff-timer-hint">Tap to start</div>
+    </div>
+    <div class="ff-sets-wrap">
+      <div class="ff-sets-lbl">${meta.join(' · ')}</div>
+      <div class="ff-sets-row" id="ff-sets-row">${setsRow}</div>
+    </div>
+    <div class="ff-steps">
+      <div class="ff-steps-lbl">How to</div>
+      ${stepsHtml}
+    </div>
+    <div class="ff-tip"><b>Tip:</b> ${ex.tip}</div>
+    <div class="logwrap">
+      <button class="logbtn" onclick="${isLast?'ffFinish()':'ffNextEx()'}">
+        ${isLast?'FINISH SESSION':'NEXT EXERCISE'}
+      </button>
+    </div>`;
+  document.getElementById('scr-flatfeet').scrollTop=0;
+}
+
+function ffToggleTimer(){
+  if(ffTimerRunning){
+    ffTimerRunning=false;
+    if(ffTimerTid){clearInterval(ffTimerTid);ffTimerTid=null}
+    const wrap=document.getElementById('ff-timer-wrap');
+    if(wrap)wrap.classList.remove('running');
+    const lbl=document.getElementById('ff-timer-lbl');
+    if(lbl)lbl.textContent=FF_EXS[ffExIdx].timerLbl+' · Paused';
+    const hint=document.getElementById('ff-timer-hint');
+    if(hint)hint.textContent='Tap to resume';
+  } else {
+    if(ffTimerSecs<=0)ffTimerSecs=FF_EXS[ffExIdx].timerSecs;
+    ffTimerRunning=true;
+    const wrap=document.getElementById('ff-timer-wrap');
+    if(wrap)wrap.classList.add('running');
+    const lbl=document.getElementById('ff-timer-lbl');
+    if(lbl)lbl.textContent=FF_EXS[ffExIdx].timerLbl+' · Running';
+    const hint=document.getElementById('ff-timer-hint');
+    if(hint)hint.textContent='Tap to pause';
+    ffTimerTid=setInterval(()=>{
+      ffTimerSecs--;
+      const el=document.getElementById('ff-timer-val');
+      if(el)el.textContent=fmtRest(Math.max(0,ffTimerSecs));
+      if(ffTimerSecs<=0){
+        ffStopTimer();
+        if(navigator.vibrate)navigator.vibrate([200,100,200]);
+        const l=document.getElementById('ff-timer-lbl');
+        if(l)l.textContent=FF_EXS[ffExIdx].timerLbl+' · Done';
+        const h=document.getElementById('ff-timer-hint');
+        if(h)h.textContent='Tap to restart';
+        const w=document.getElementById('ff-timer-wrap');
+        if(w)w.classList.remove('running');
+      }
+    },1000);
+  }
+}
+
+function ffStopTimer(){
+  ffTimerRunning=false;
+  if(ffTimerTid){clearInterval(ffTimerTid);ffTimerTid=null}
+}
+
+function ffToggleSet(i){
+  ffSetsData[ffExIdx][i]=!ffSetsData[ffExIdx][i];
+  const btns=document.querySelectorAll('.ff-set-btn');
+  if(btns[i]){
+    btns[i].classList.toggle('done',ffSetsData[ffExIdx][i]);
+    btns[i].textContent='Set '+(i+1)+(ffSetsData[ffExIdx][i]?' ✓':'');
+  }
+}
+
+function ffNextEx(){
+  ffStopTimer();
+  if(ffExIdx<FF_EXS.length-1){
+    ffExIdx++;
+    renderFlatFeetEx();
+  }
+}
+
+function ffFinish(){
+  ffStopTimer();
+  const c=lsp('completedDays');
+  c[curWk+'-'+ffDayNum]=true;
+  ssp('completedDays',c);
+  renderFlatFeetComplete();
+}
+
+function renderFlatFeetComplete(){
+  document.getElementById('ff-num').textContent='Session Complete';
+  document.getElementById('ff-name').textContent='FLAT FEET FIX';
+  const schedHtml=FF_SCHED.map(s=>`<div class="ff-sched-item"><div class="ff-sched-dot"></div><div class="ff-sched-txt">${s.text}</div></div>`).join('');
+  document.getElementById('ff-body').innerHTML=`
+    <div class="ff-complete">
+      <div class="ff-complete-icon">&#x2705;</div>
+      <div class="ff-complete-title">SESSION COMPLETE</div>
+      <div class="ff-complete-sub">Great work — your arches will thank you.</div>
+      <div class="ff-sched">
+        <div class="ff-sched-title">Progression Schedule</div>
+        ${schedHtml}
+      </div>
+      <div class="logwrap" style="padding:0">
+        <button class="logbtn" onclick="closeFlatFeet()">BACK TO ${prevScr==='programs'?'PROGRAMS':'WEEK'}</button>
+      </div>
+    </div>`;
+  document.getElementById('scr-flatfeet').scrollTop=0;
 }
 
 // ── INIT ──────────────────────────────────────────────
