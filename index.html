@@ -16,7 +16,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0a0a0a;--sf:#141414;--sf2:#1e1e1e;--bd:#2a2a2a;
-  --y:#c8ff00;--r:#ff4520;--b:#00b4ff;
+  --y:#c8ff00;--r:#ff4520;--b:#00b4ff;--am:#ff9a00;
   --tx:#ffffff;--dim:#888888;
   --nav:64px;
   --st:env(safe-area-inset-top,0px);
@@ -107,7 +107,9 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
 .dc:active{transform:scale(.96)}
 .dc.done{border-color:var(--y)}
 .dc.done::after{content:'✓';position:absolute;top:6px;right:7px;color:var(--y);font-size:13px;font-weight:700}
-.dc.today:not(.done){border-color:var(--b)}
+.dc.partial{border-color:var(--am)}
+.dc.partial::after{content:'~';position:absolute;top:6px;right:7px;color:var(--am);font-size:13px;font-weight:700}
+.dc.today:not(.done):not(.partial){border-color:var(--b)}
 .dc.today .dc-dow{color:var(--b)}
 .dc.rest{opacity:.4;cursor:default;pointer-events:none}
 .dc.rest:active{transform:none}
@@ -208,6 +210,7 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
 }
 .logbtn:active{opacity:.75}
 .logbtn.logged{background:var(--sf2);color:var(--y);border:1px solid var(--y)}
+.logbtn.partial{background:var(--sf2);color:var(--am);border:1px solid var(--am)}
 
 /* ── REST DAY ── */
 .rest-card{padding:40px 16px;text-align:center;color:var(--dim)}
@@ -263,6 +266,7 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
   font-size:9px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;font-weight:600;
 }
 .hc.done{background:var(--y);border-color:var(--y);color:var(--bg)}
+.hc.partial{background:var(--am);border-color:var(--am);color:var(--bg)}
 .hc.hc-lbl{background:none;border:none;font-size:9px;color:var(--dim)}
 
 /* Log sections */
@@ -423,8 +427,11 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
   background:rgba(200,255,0,.07);border:1px solid rgba(200,255,0,.25);
   border-radius:8px;
 }
+.logged-banner.partial{background:rgba(255,154,0,.07);border-color:rgba(255,154,0,.25)}
 .lb-check{color:var(--y);font-size:17px;font-weight:700;flex-shrink:0}
+.lb-check.partial{color:var(--am)}
 .lb-txt{flex:1;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.05em;color:var(--y)}
+.lb-txt.partial{color:var(--am)}
 .lb-unlog{
   padding:6px 12px;background:none;border:1px solid var(--bd);
   border-radius:6px;color:var(--dim);font-family:'Barlow Condensed',sans-serif;
@@ -946,10 +953,12 @@ function renderWeek(){
         <div class="dc-tags"><span class="tag tr">Rest</span></div>
       </div>`;
     }
-    const done=!!completed[curWk+'-'+d.day];
+    const _st=completed[curWk+'-'+d.day];
+    const done=_st==='complete'||_st===true;
+    const partialDay=_st==='partial';
     const isToday=d.dow===todayDow;
     const tags=d.tags.map(t=>`<span class="tag ${tagClass(t)}">${t}</span>`).join('');
-    return`<div class="dc${done?' done':''}${isToday?' today':''}" onclick="openDay(${d.day})">
+    return`<div class="dc${done?' done':''}${partialDay?' partial':''}${isToday?' today':''}" onclick="openDay(${d.day})">
       <div class="dc-dow">${d.dow}</div>
       <div class="dc-n">Day ${d.day}</div>
       <div class="dc-t">${d.title}</div>
@@ -990,13 +999,21 @@ function renderDay(wk,dayNum){
 
   const checks=lsp('exerciseChecks');
   const notes=lsp('exerciseNotes');
-  const comp=!!lsp('completedDays')[`${wk}-${dayNum}`];
+  const _dayStatus=lsp('completedDays')[`${wk}-${dayNum}`];
+  const comp=_dayStatus==='complete'||_dayStatus===true;
+  const partialComp=_dayStatus==='partial';
   let idx=0,html='';
 
   if(comp){
     html+=`<div class="logged-banner">
       <span class="lb-check">✓</span>
       <span class="lb-txt">Session Logged</span>
+      <button class="lb-unlog" onclick="togComplete(${wk},${dayNum})">Un-log</button>
+    </div>`;
+  } else if(partialComp){
+    html+=`<div class="logged-banner partial">
+      <span class="lb-check partial">~</span>
+      <span class="lb-txt partial">Partial Session</span>
       <button class="lb-unlog" onclick="togComplete(${wk},${dayNum})">Un-log</button>
     </div>`;
   }
@@ -1041,8 +1058,8 @@ function renderDay(wk,dayNum){
     <textarea class="sn-ta" id="sn-ta" placeholder="How did it go…" oninput="saveDayNote(${wk},${dayNum},this.value)">${dn[`${wk}-${dayNum}`]||''}</textarea>
   </div>
   <div class="logwrap">
-    <button class="logbtn${comp?' logged':''}" id="log-btn" onclick="togComplete(${wk},${dayNum})">
-      ${comp?'✓ SESSION LOGGED':'LOG SESSION COMPLETE'}
+    <button class="logbtn${comp?' logged':partialComp?' partial':''}" id="log-btn" onclick="togComplete(${wk},${dayNum})">
+      ${comp?'✓ SESSION LOGGED':partialComp?'~ PARTIAL SESSION':'LOG SESSION COMPLETE'}
     </button>
   </div>`;
 
@@ -1061,21 +1078,28 @@ function togEx(wk,day,i){
 
 function togComplete(wk,day){
   const c=lsp('completedDays');
-  const v=!c[`${wk}-${day}`];
-  if(v)c[`${wk}-${day}`]=true;else delete c[`${wk}-${day}`];
+  const cur=c[`${wk}-${day}`];
+  let next;
+  if(!cur){next='complete';}
+  else if(cur==='complete'||cur===true){next='partial';}
+  else{next=null;}
+  if(next)c[`${wk}-${day}`]=next;else delete c[`${wk}-${day}`];
   ssp('completedDays',c);
+  const isComp=next==='complete';
+  const isPart=next==='partial';
   const btn=document.getElementById('log-btn');
-  if(btn){btn.textContent=v?'✓ SESSION LOGGED':'LOG SESSION COMPLETE';btn.classList.toggle('logged',v)}
-  // Update top banner in sync
+  if(btn){
+    btn.textContent=isComp?'✓ SESSION LOGGED':isPart?'~ PARTIAL SESSION':'LOG SESSION COMPLETE';
+    btn.className='logbtn'+(isComp?' logged':isPart?' partial':'');
+  }
   const banner=document.querySelector('.logged-banner');
-  if(v&&!banner){
-    document.getElementById('d-body').insertAdjacentHTML('afterbegin',
-      `<div class="logged-banner">
-        <span class="lb-check">✓</span>
-        <span class="lb-txt">Session Logged</span>
-        <button class="lb-unlog" onclick="togComplete(${wk},${day})">Un-log</button>
-      </div>`);
-  } else if(!v&&banner){
+  if(isComp){
+    if(banner){banner.outerHTML=`<div class="logged-banner"><span class="lb-check">✓</span><span class="lb-txt">Session Logged</span><button class="lb-unlog" onclick="togComplete(${wk},${day})">Un-log</button></div>`;}
+    else{document.getElementById('d-body').insertAdjacentHTML('afterbegin',`<div class="logged-banner"><span class="lb-check">✓</span><span class="lb-txt">Session Logged</span><button class="lb-unlog" onclick="togComplete(${wk},${day})">Un-log</button></div>`);}
+  } else if(isPart){
+    if(banner){banner.outerHTML=`<div class="logged-banner partial"><span class="lb-check partial">~</span><span class="lb-txt partial">Partial Session</span><button class="lb-unlog" onclick="togComplete(${wk},${day})">Un-log</button></div>`;}
+    else{document.getElementById('d-body').insertAdjacentHTML('afterbegin',`<div class="logged-banner partial"><span class="lb-check partial">~</span><span class="lb-txt partial">Partial Session</span><button class="lb-unlog" onclick="togComplete(${wk},${day})">Un-log</button></div>`);}
+  } else if(banner){
     banner.remove();
   }
 }
@@ -1135,12 +1159,12 @@ function renderHeatmap(){
     const row=new Array(7).fill(null);
     prog.days.forEach(d=>{
       const col=dayToCol[d.day];
-      if(col!==undefined)row[col]=!!c[`${w}-${d.day}`];
+      if(col!==undefined){const v=c[`${w}-${d.day}`];row[col]=v===true?'complete':(v||'');}
     });
-    row.forEach((done,col)=>{
-      html+=done===null
+    row.forEach((st,col)=>{
+      html+=st===null
         ?`<div class="hc"></div>`
-        :`<div class="hc${done?' done':''}" title="W${w} ${labels[col]}"></div>`;
+        :`<div class="hc${st==='complete'?' done':st==='partial'?' partial':''}" title="W${w} ${labels[col]}"></div>`;
     });
   }
   document.getElementById('heatmap').innerHTML=html;
