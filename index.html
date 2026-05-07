@@ -267,6 +267,8 @@ h1,.cond{font-family:'Barlow Condensed',sans-serif}
 }
 .hc.done{background:var(--y);border-color:var(--y);color:var(--bg)}
 .hc.partial{background:var(--am);border-color:var(--am);color:var(--bg)}
+.hc.hc-tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hc.hc-tap:active{opacity:.6}
 .hc.hc-lbl{background:none;border:none;font-size:9px;color:var(--dim)}
 
 /* Log sections */
@@ -1151,6 +1153,8 @@ function renderHeatmap(){
   const DOW_COL={SUN:0,MON:1,TUE:2,WED:3,THU:4,FRI:5,SAT:6};
   const dayToCol={};
   prog.days.forEach(d=>{dayToCol[d.day]=DOW_COL[d.dow]??d.day-1});
+  const colToDay={};
+  prog.days.forEach(d=>{if(!d.isRest){const col=dayToCol[d.day];if(col!=null)colToDay[col]=d.day;}});
 
   const labels=['S','M','T','W','T','F','S'];
   let html=labels.map(l=>`<div class="hc hc-lbl">${l}</div>`).join('');
@@ -1168,13 +1172,16 @@ function renderHeatmap(){
       row[col]=total===0?'':(done===total?'complete':done>0?'partial':'');
     });
     row.forEach((st,col)=>{
-      html+=st===null
-        ?`<div class="hc"></div>`
-        :`<div class="hc${st==='complete'?' done':st==='partial'?' partial':''}" title="W${w} ${labels[col]}"></div>`;
+      if(st===null){html+=`<div class="hc"></div>`;return;}
+      const dn=colToDay[col];
+      const cls='hc'+(st==='complete'?' done':st==='partial'?' partial':'')+(dn!=null?' hc-tap':'');
+      html+=`<div class="${cls}"${dn!=null?` onclick="openDayFromHm(${w},${dn})"`:''}></div>`;
     });
   }
   document.getElementById('heatmap').innerHTML=html;
 }
+
+function openDayFromHm(wk,day){curWk=wk;openDay(day);}
 
 function renderLogs(){
   const logs=ls('logs',{});
