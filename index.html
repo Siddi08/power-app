@@ -946,7 +946,9 @@ function renderWeek(){
   document.getElementById('sv-tot').textContent=total;
   const completed=lsp('completedDays');
   const todayDow=getTodayDow();
-  document.getElementById('day-grid').innerHTML=days.map(d=>{
+  const _dowOrd={SUN:0,MON:1,TUE:2,WED:3,THU:4,FRI:5,SAT:6};
+  const sortedDays=[...days].sort((a,b)=>(_dowOrd[a.dow]??7)-(_dowOrd[b.dow]??7));
+  document.getElementById('day-grid').innerHTML=sortedDays.map(d=>{
     if(d.isRest){
       return`<div class="dc rest">
         <div class="dc-dow">${d.dow}</div>
