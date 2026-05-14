@@ -710,6 +710,234 @@ function makeTrainingPlanProg(){
 }
 
 
+function makeHalfMarathonProg(){
+  // 21 days: days 1-7 = Phase 1 (wks 1-8), days 8-14 = Phase 2 (wks 9-16), days 15-21 = Phase 3 (wks 17-24).
+  // renderWeek/renderHeatmap slice the correct 7-day block per phase; dayNum in storage keys is absolute (1-21).
+  const P1N='Phase 1 — Foundation (Wks 1–8): Explosiveness first, then strength.';
+  const P2N='Phase 2 — Build (Wks 9–16): Heavier power, tempo runs added.';
+  const P3N='Phase 3 — Peak + Taper (Wks 17–24): Race-speed focus. Wks 23-24: follow Taper sections; skip THU & FRI sessions entirely.';
+  return{
+    id:'half_marathon',
+    name:'EXPLOSIVE HALF MARATHON',
+    subtitle:'24-Week Power + Running Program',
+    isBuiltIn:true,
+    createdAt:0,
+    days:[
+      // ── PHASE 1 — Foundation (days 1-7, wks 1-8) ─────────────────────────
+      {day:1,dow:'MON',title:'Power + Upper Strength',tags:['Power','Strength'],isRest:false,note:P1N,
+       secs:[
+        {type:'power',lbl:'Power Block',exs:[
+          {n:'Power Clean',s:4,r:3},
+          {n:'Box Jump',s:4,r:5},
+          {n:'Broad Jump',s:3,r:5},
+          {n:'Med Ball Slam',s:3,r:8},
+        ]},
+        {type:'strength',lbl:'Upper Strength',exs:[
+          {n:'Bench Press',s:4,r:6},
+          {n:'Weighted Pull-ups',s:4,r:6},
+          {n:'Overhead Press',s:3,r:8},
+          {n:'Cable Row',s:3,r:10},
+          {n:'Face Pulls',s:3,r:15},
+          {n:'Hammer Curl',s:2,r:12},
+          {n:'Tricep Pushdown',s:2,r:12},
+        ]},
+       ]},
+      {day:2,dow:'TUE',title:'Easy Run — Zone 2',tags:['Cardio'],isRest:false,note:P1N,
+       secs:[
+        {type:'cardio',lbl:'Zone 2 Run',exs:[
+          {n:'Easy Run',m:'25–30 min · Zone 2 · conversational pace'},
+        ]},
+       ]},
+      {day:3,dow:'WED',title:'Power + Lower Strength',tags:['Power','Strength'],isRest:false,note:P1N,
+       secs:[
+        {type:'power',lbl:'Power Block',exs:[
+          {n:'Jump Squat',s:4,r:5},
+          {n:'Depth Drop → Box Jump',s:3,r:4},
+          {n:'KB Swing',s:4,r:10},
+          {n:'Single-Leg Bound',s:3,r:5,m:'each leg'},
+        ]},
+        {type:'strength',lbl:'Lower Strength',exs:[
+          {n:'Back Squat',s:4,r:6},
+          {n:'Romanian Deadlift',s:4,r:8},
+          {n:'Barbell Hip Thrust',s:3,r:10},
+          {n:'Leg Press',s:3,r:10},
+          {n:'Nordic Hamstring Curl',s:3,r:6},
+          {n:'Calf Raises',s:3,r:15},
+        ]},
+       ]},
+      {day:4,dow:'THU',title:'Easy Run — Zone 2',tags:['Cardio'],isRest:false,note:P1N,
+       secs:[
+        {type:'cardio',lbl:'Zone 2 Run',exs:[
+          {n:'Easy Run',m:'30–35 min · Zone 2 · conversational pace'},
+        ]},
+       ]},
+      {day:5,dow:'FRI',title:'Sprint + Full Body',tags:['Power','Strength'],isRest:false,note:P1N,
+       secs:[
+        {type:'power',lbl:'Sprint Block',exs:[
+          {n:'40m Sprint',s:6,m:'max effort · full recovery between reps'},
+          {n:'60m Sprint',s:4,m:'max effort · full recovery between reps'},
+          {n:'Wall Drive Drill',s:3,m:'10 sec per set'},
+        ]},
+        {type:'strength',lbl:'Full Body Strength',exs:[
+          {n:'Deadlift',s:4,r:5},
+          {n:'Barbell Row',s:3,r:8},
+          {n:'Goblet Squat',s:3,r:10},
+          {n:'Single-Arm DB Row',s:3,r:8,m:'each arm'},
+          {n:'Plank',s:3,m:'45 sec'},
+          {n:'Copenhagen Adductor',s:2,r:8,m:'each side'},
+        ]},
+       ]},
+      {day:6,dow:'SAT',title:'Long Run',tags:['Cardio'],isRest:false,note:P1N,
+       secs:[
+        {type:'cardio',lbl:'Long Run',exs:[
+          {n:'Long Run',loads:[6,7,8,9,10,11,12,13],wkOffset:0,unit:'km',m:'steady aerobic pace · build gradually'},
+        ]},
+       ]},
+      {day:7,dow:'SUN',title:'Full Rest Day',tags:['Rest'],isRest:true,note:null},
+
+      // ── PHASE 2 — Build (days 8-14, wks 9-16) ────────────────────────────
+      {day:8,dow:'MON',title:'Heavy Power + Full Body A',tags:['Power','Strength'],isRest:false,note:P2N,
+       secs:[
+        {type:'power',lbl:'Power Block',exs:[
+          {n:'Power Clean',s:5,r:3},
+          {n:'Hang Power Clean',s:3,r:3},
+          {n:'Weighted Box Jump',s:4,r:4},
+          {n:'Trap Bar Jump',s:3,r:5},
+        ]},
+        {type:'strength',lbl:'Full Body Strength A',exs:[
+          {n:'Back Squat',s:4,r:5},
+          {n:'Bench Press',s:3,r:6},
+          {n:'Weighted Pull-ups',s:3,r:5},
+          {n:'Overhead Press',s:2,r:8},
+          {n:'Face Pulls',s:3,r:15},
+          {n:'Plank',s:2,m:'50 sec'},
+        ]},
+       ]},
+      {day:9,dow:'TUE',title:'Easy Run — Zone 2',tags:['Cardio'],isRest:false,note:P2N,
+       secs:[
+        {type:'cardio',lbl:'Zone 2 Run',exs:[
+          {n:'Easy Run',m:'35 min · Zone 2 · conversational pace'},
+        ]},
+       ]},
+      {day:10,dow:'WED',title:'Tempo Run',tags:['Cardio'],isRest:false,note:P2N,
+       secs:[
+        {type:'cardio',lbl:'Tempo Run',exs:[
+          {n:'Tempo Run',loads:[22,24,26,28,30,32,34,36],wkOffset:8,unit:'min',m:'race-pace effort · 80–90% HR max'},
+        ]},
+       ]},
+      {day:11,dow:'THU',title:'Sprint Drills + Easy Run',tags:['Power','Cardio'],isRest:false,note:P2N,
+       secs:[
+        {type:'power',lbl:'Sprint Drills',exs:[
+          {n:'High Knees',s:3,m:'20m per set'},
+          {n:'A-Skip',s:3,m:'20m per set'},
+          {n:'Sprint',s:4,m:'30m · max effort · full recovery'},
+          {n:'Bounding',s:2,m:'30m per set'},
+        ]},
+        {type:'cardio',lbl:'Easy Run',exs:[
+          {n:'Easy Run',m:'30 min after drills · Zone 2'},
+        ]},
+       ]},
+      {day:12,dow:'FRI',title:'Full Body Strength B',tags:['Strength'],isRest:false,note:P2N,
+       secs:[
+        {type:'strength',lbl:'Full Body Strength B',exs:[
+          {n:'Deadlift',s:4,r:5},
+          {n:'Romanian Deadlift',s:4,r:6},
+          {n:'Barbell Row',s:3,r:8},
+          {n:'Nordic Hamstring Curl',s:3,r:6},
+          {n:'Single-Leg RDL',s:3,r:8,m:'each leg'},
+          {n:'Copenhagen Adductor',s:2,r:8,m:'each side'},
+          {n:'Calf Raises',s:3,r:15},
+        ]},
+       ]},
+      {day:13,dow:'SAT',title:'Long Run',tags:['Cardio'],isRest:false,note:P2N,
+       secs:[
+        {type:'cardio',lbl:'Long Run',exs:[
+          {n:'Long Run',loads:[13,14,15,16,16,16,16,16],wkOffset:8,unit:'km',m:'steady aerobic pace'},
+        ]},
+       ]},
+      {day:14,dow:'SUN',title:'Full Rest Day',tags:['Rest'],isRest:true,note:null},
+
+      // ── PHASE 3 — Peak + Taper (days 15-21, wks 17-24) ───────────────────
+      {day:15,dow:'MON',title:'Speed Power + Strength A',tags:['Power','Strength'],isRest:false,
+       note:P3N,
+       secs:[
+        {type:'power',lbl:'Peak Power (Wks 17–22)',exs:[
+          {n:'Power Clean',s:5,r:2},
+          {n:'Speed Squat',s:5,r:3},
+          {n:'Depth Jump → Sprint',s:4,r:3},
+          {n:'Resisted Sprint',s:4,m:'20m per rep'},
+          {n:'Broad Jump',s:3,r:5},
+        ]},
+        {type:'strength',lbl:'Peak Strength A (Wks 17–22)',exs:[
+          {n:'Back Squat',s:3,r:5},
+          {n:'Bench Press',s:3,r:5},
+          {n:'Weighted Pull-ups',s:3,r:5},
+          {n:'Overhead Press',s:2,r:6},
+          {n:'Face Pulls',s:3,r:15},
+        ]},
+        {type:'power',lbl:'Taper Power (Wks 23–24)',exs:[
+          {n:'Box Jump',s:3,r:3,m:'light / technical focus'},
+          {n:'Light Power Clean',s:3,r:2,m:'60% effort'},
+          {n:'Sprint',s:3,m:'20m · max effort'},
+        ]},
+        {type:'strength',lbl:'Taper Strength A (Wks 23–24)',exs:[
+          {n:'Back Squat',s:2,r:4,m:'60% of working weight'},
+          {n:'Bench Press',s:2,r:4,m:'60% of working weight'},
+          {n:'Pull-ups',s:2,r:5},
+          {n:'Face Pulls',s:2,r:12},
+        ]},
+       ]},
+      {day:16,dow:'TUE',title:'Easy Run',tags:['Cardio'],isRest:false,
+       note:'TAPER WKS 23–24: Run only 20 min.',
+       secs:[
+        {type:'cardio',lbl:'Easy Run',exs:[
+          {n:'Easy Run',loads:[40,40,40,40,40,40,20,20],wkOffset:16,unit:'min',m:'Zone 2 · conversational pace'},
+        ]},
+       ]},
+      {day:17,dow:'WED',title:'Race-Pace Tempo',tags:['Cardio'],isRest:false,
+       note:'TAPER WKS 23–24: 15 min easy Zone 2 only — no tempo effort.',
+       secs:[
+        {type:'cardio',lbl:'Tempo / Easy Run',exs:[
+          {n:'Race-Pace Tempo',loads:[30,30,30,30,30,30,15,15],wkOffset:16,unit:'min',m:'80–90% HR max (wks 17–22) · easy Zone 2 (wks 23–24)'},
+        ]},
+       ]},
+      {day:18,dow:'THU',title:'Sprint + Easy Run',tags:['Power','Cardio'],isRest:false,
+       note:'TAPER WKS 23–24: REST this day — skip this session entirely.',
+       secs:[
+        {type:'power',lbl:'Sprints (Wks 17–22)',exs:[
+          {n:'40m Sprint',s:6,m:'max effort · full recovery'},
+          {n:'80m Sprint',s:3,m:'max effort · full recovery'},
+          {n:'Flying Sprint',s:3,m:'20m · build into full speed'},
+        ]},
+        {type:'cardio',lbl:'Easy Run (Wks 17–22)',exs:[
+          {n:'Easy Run',m:'30 min · Zone 2 · after sprints'},
+        ]},
+       ]},
+      {day:19,dow:'FRI',title:'Full Body Strength B',tags:['Strength'],isRest:false,
+       note:'TAPER WKS 23–24: REST this day — skip this session entirely.',
+       secs:[
+        {type:'strength',lbl:'Full Body Strength B (Wks 17–22)',exs:[
+          {n:'Deadlift',s:3,r:4},
+          {n:'Romanian Deadlift',s:3,r:6},
+          {n:'Barbell Row',s:3,r:8},
+          {n:'Nordic Hamstring Curl',s:3,r:6},
+          {n:'Copenhagen Adductor',s:2,r:8,m:'each side'},
+          {n:'Calf Raises',s:3,r:15},
+        ]},
+       ]},
+      {day:20,dow:'SAT',title:'Long Run',tags:['Cardio'],isRest:false,
+       note:'Phase 3: peaks at 19km (wks 21–22), tapers to 14km (wk 23) then 10km (wk 24).',
+       secs:[
+        {type:'cardio',lbl:'Long Run',exs:[
+          {n:'Long Run',loads:[16,17,18,19,19,19,14,10],wkOffset:16,unit:'km',m:'steady aerobic pace'},
+        ]},
+       ]},
+      {day:21,dow:'SUN',title:'Full Rest Day',tags:['Rest'],isRest:true,note:null},
+    ]
+  };
+}
+
+
 function makeFlatFeetProg(){
   const DOWS=['MON','TUE','WED','THU','FRI','SAT','SUN'];
   return{
@@ -799,6 +1027,11 @@ function initPrograms(){
   // Always refresh built-in data from source code so new fields propagate
   const tpIdx=progs.findIndex(p=>p.id==='training_plan');
   if(tpIdx>=0){progs[tpIdx]=makeTrainingPlanProg();}else{progs.unshift(makeTrainingPlanProg());}
+  const hmIdx=progs.findIndex(p=>p.id==='half_marathon');
+  if(hmIdx>=0){progs[hmIdx]=makeHalfMarathonProg();}else{
+    const tpFinal=progs.findIndex(p=>p.id==='training_plan');
+    progs.splice(tpFinal+1,0,makeHalfMarathonProg());
+  }
   if(!progs.find(p=>p.id==='flat_feet_fix')){progs.push(makeFlatFeetProg());}
   ss('power_programs',progs);
   // Fix active program if it pointed at a now-removed program
@@ -916,7 +1149,11 @@ function goBack(){
   if(prevScr==='progress')renderProgress();
 }
 // ── WEEK RENDER ───────────────────────────────────────
-function chWk(d){curWk=Math.max(1,curWk+d);renderWeek()}
+function chWk(d){
+  const maxWk=getActiveProgram().id==='half_marathon'?24:9999;
+  curWk=Math.max(1,Math.min(maxWk,curWk+d));
+  renderWeek();
+}
 
 function getTodayDow(){
   return['SUN','MON','TUE','WED','THU','FRI','SAT'][new Date().getDay()];
@@ -935,11 +1172,15 @@ function tagClass(t){
 
 function renderWeek(){
   const prog=getActiveProgram();
-  const days=prog.days;
+  const isHM=prog.id==='half_marathon';
+  const maxWk=isHM?24:9999;
+  let days=prog.days;
+  if(isHM){const ph=curWk<=8?0:curWk<=16?1:2;days=prog.days.slice(ph*7,ph*7+7);}
   document.getElementById('wk-head-name').textContent=prog.name;
   document.getElementById('wk-sub').textContent=prog.subtitle||'7-Day Training Block';
   document.getElementById('wk-lbl').textContent='WEEK '+curWk;
   document.getElementById('wk-prev').disabled=curWk<=1;
+  document.getElementById('wk-next').disabled=curWk>=maxWk;
   const{wkDone,streak,total}=calcStats();
   document.getElementById('sv-wk').textContent=wkDone;
   document.getElementById('sv-str').textContent=streak;
@@ -949,10 +1190,11 @@ function renderWeek(){
   const _dowOrd={SUN:0,MON:1,TUE:2,WED:3,THU:4,FRI:5,SAT:6};
   const sortedDays=[...days].sort((a,b)=>(_dowOrd[a.dow]??7)-(_dowOrd[b.dow]??7));
   document.getElementById('day-grid').innerHTML=sortedDays.map(d=>{
+    const dispDay=isHM?(d.day-1)%7+1:d.day;
     if(d.isRest){
       return`<div class="dc rest">
         <div class="dc-dow">${d.dow}</div>
-        <div class="dc-n">Day ${d.day}</div>
+        <div class="dc-n">Day ${dispDay}</div>
         <div class="dc-t">${d.title}</div>
         <div class="dc-tags"><span class="tag tr">Rest</span></div>
       </div>`;
@@ -964,7 +1206,7 @@ function renderWeek(){
     const tags=d.tags.map(t=>`<span class="tag ${tagClass(t)}">${t}</span>`).join('');
     return`<div class="dc${done?' done':''}${partialDay?' partial':''}${isToday?' today':''}" onclick="openDay(${d.day})">
       <div class="dc-dow">${d.dow}</div>
-      <div class="dc-n">Day ${d.day}</div>
+      <div class="dc-n">Day ${dispDay}</div>
       <div class="dc-t">${d.title}</div>
       <div class="dc-tags">${tags}</div>
     </div>`;
@@ -979,8 +1221,9 @@ function metaStr(ex,wk){
   if(ex.s&&ex.r)m=ex.s+'×'+ex.r;
   else if(ex.s)m=ex.s+' sets';
   if(ex.loads){
-    const load=ex.loads[Math.min((wk||1)-1,ex.loads.length-1)];
-    m+=(m?' · ':'')+load+'kg';
+    const idx=Math.max(0,Math.min((wk||1)-1-(ex.wkOffset||0),ex.loads.length-1));
+    const load=ex.loads[idx];
+    m+=(m?' · ':'')+load+(ex.unit||'kg');
   }
   if(ex.m)m+=(m?' · ':'')+ex.m;
   return m;
@@ -990,10 +1233,18 @@ function renderDay(wk,dayNum){
   const prog=getActiveProgram();
   const d=prog.days[dayNum-1];
   if(!d)return;
-  document.getElementById('d-num').textContent=`Day ${dayNum} — Week ${wk}`;
+  const isHM=prog.id==='half_marathon';
+  const dispDayNum=isHM?(dayNum-1)%7+1:dayNum;
+  document.getElementById('d-num').textContent=`Day ${dispDayNum} — Week ${wk}`;
   document.getElementById('d-title').textContent=d.title;
 
-  if(prog.id==='power_default'){
+  if(isHM){
+    const hmPh=wk<=8?'Foundation':wk<=16?'Build':'Peak + Taper';
+    const isTaper=wk>=23;
+    document.getElementById('d-phase').innerHTML=
+      `<div class="phase"><div class="phase-dot"></div>
+       <div class="phase-txt">Phase: <b>${hmPh}</b> · Week ${wk}${isTaper?' · <b style="color:var(--am)">TAPER</b>':''}</div></div>`;
+  } else if(prog.id==='power_default'){
     document.getElementById('d-phase').innerHTML=
       `<div class="phase"><div class="phase-dot"></div>
        <div class="phase-txt">Phase: <b>${phase(wk)}</b> · Week ${wk}</div></div>`;
@@ -1153,16 +1404,27 @@ function renderHeatmap(){
   const checks=lsp('exerciseChecks');
   const prog=getActiveProgram();
   const DOW_COL={SUN:0,MON:1,TUE:2,WED:3,THU:4,FRI:5,SAT:6};
-  const dayToCol={};
-  prog.days.forEach(d=>{dayToCol[d.day]=DOW_COL[d.dow]??d.day-1});
-  const colToDay={};
-  prog.days.forEach(d=>{if(!d.isRest){const col=dayToCol[d.day];if(col!=null)colToDay[col]=d.day;}});
+  const isHM=prog.id==='half_marathon';
+
+  // For non-HM programs compute maps once; for HM recompute per week (phases have same DOWs)
+  let _dayToCol, _colToDay;
+  if(!isHM){
+    _dayToCol={};prog.days.forEach(d=>{_dayToCol[d.day]=DOW_COL[d.dow]??d.day-1});
+    _colToDay={};prog.days.forEach(d=>{if(!d.isRest){const col=_dayToCol[d.day];if(col!=null)_colToDay[col]=d.day;}});
+  }
 
   const labels=['S','M','T','W','T','F','S'];
   let html=labels.map(l=>`<div class="hc hc-lbl">${l}</div>`).join('');
   for(let w=1;w<=10;w++){
+    let wDays=prog.days,dayToCol=_dayToCol,colToDay=_colToDay;
+    if(isHM){
+      const ph=w<=8?0:w<=16?1:2;
+      wDays=prog.days.slice(ph*7,ph*7+7);
+      dayToCol={};wDays.forEach(d=>{dayToCol[d.day]=DOW_COL[d.dow]??d.day-1});
+      colToDay={};wDays.forEach(d=>{if(!d.isRest){const col=dayToCol[d.day];if(col!=null)colToDay[col]=d.day;}});
+    }
     const row=new Array(7).fill(null);
-    prog.days.forEach(d=>{
+    wDays.forEach(d=>{
       const col=dayToCol[d.day];
       if(col===undefined)return;
       if(d.isRest){row[col]='';return;}
