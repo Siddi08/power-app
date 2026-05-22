@@ -710,6 +710,106 @@ function makeTrainingPlanProg(){
 }
 
 
+function makeHybridRunStrengthProg(){
+  return{
+    id:'hybrid_run_strength',
+    name:'HYBRID RUN & STRENGTH',
+    subtitle:'7-Day Running Performance + Compound Lifting',
+    isBuiltIn:true,
+    createdAt:0,
+    days:[
+      {day:1,dow:'MON',title:'Speed Intervals (VO2 Max)',tags:['Cardio'],isRest:false,
+       note:'VO2 max development, stride efficiency, and lactic threshold tolerance.',
+       secs:[
+        {type:'cardio',lbl:'Warm-Up',exs:[
+          {n:'Easy Jog',m:'10 min · very easy pace'},
+          {n:'Dynamic Stretches',m:'Leg swings, high knees, butt kicks, walking lunges'},
+          {n:'Accelerations',m:'3 × 50 m · build to 90% effort, then slow down'},
+        ]},
+        {type:'cardio',lbl:'Main Set — VO2 Max Repeats',exs:[
+          {n:'800 m Repeats',s:5,m:'90–95% max effort · target 3–5 km race pace · 2–3 min passive rest between each'},
+        ]},
+        {type:'mobility',lbl:'Cool-Down',exs:[
+          {n:'Easy Walk + Static Stretch',m:'5 min walk · calves, hamstrings, hip flexors'},
+        ]},
+       ]},
+      {day:2,dow:'TUE',title:'Pull & Core Lift + Easy Recovery Run',tags:['Strength','Cardio'],isRest:false,
+       note:'Consolidate high-stress lower-body work with Monday for deep mid-week recovery. Lift first, run in the afternoon/evening.',
+       secs:[
+        {type:'mobility',lbl:'Warm-Up',exs:[
+          {n:'Dynamic Mobility',m:'5–10 min · thoracic rotations, bodyweight squats, glute bridges'},
+        ]},
+        {type:'strength',lbl:'Pull & Core',exs:[
+          {n:'Conventional Deadlift',s:3,r:5,rest:180,m:'Explosive hip extension · keep 1–2 reps in reserve'},
+          {n:'Weighted Pull-Ups',s:3,r:6,rest:120,m:'BW or assisted · full range of motion'},
+          {n:'Barbell Overhead Press',s:3,r:5,rest:120,m:'Braced core · drive bar straight overhead'},
+          {n:'Single-Leg RDL (Dumbbell)',s:3,r:10,rest:90,m:'Each leg · single-leg stability, ankle strength, hamstring health'},
+          {n:'Hanging Knee Raises',s:3,r:12,rest:60,m:'Controlled lowering · do not swing'},
+        ]},
+        {type:'cardio',lbl:'Recovery Run (PM)',exs:[
+          {n:'Easy Zone 2 Run',m:'5 km or 25–30 min · conversational pace · flush the legs'},
+        ]},
+       ]},
+      {day:3,dow:'WED',title:'Tempo / Lactate Threshold Run',tags:['Cardio'],isRest:false,
+       note:'Builds your sustained aerobic engine. Trains your body to clear lactic acid at faster speeds.',
+       secs:[
+        {type:'cardio',lbl:'Warm-Up',exs:[
+          {n:'Easy Jog',m:'10 min · a few dynamic leg swings'},
+        ]},
+        {type:'cardio',lbl:'Main Set — Tempo Run',exs:[
+          {n:'Continuous Tempo Run',m:'20–30 min · comfortably hard · 80–85% max effort · short phrases only, not full sentences'},
+        ]},
+        {type:'mobility',lbl:'Cool-Down',exs:[
+          {n:'Easy Walk',m:'5 min'},
+        ]},
+       ]},
+      {day:4,dow:'THU',title:'Push & Lower Body Power',tags:['Strength'],isRest:false,
+       note:'Build driving power for your stride. 3 working sets keeps legs fresh for the weekend volume.',
+       secs:[
+        {type:'mobility',lbl:'Warm-Up',exs:[
+          {n:'Warm-Up Circuit',m:'Deep bodyweight squats, lunges, light arm circles'},
+        ]},
+        {type:'strength',lbl:'Push & Lower Power',exs:[
+          {n:'Barbell Back Squat',s:3,r:5,rest:180,m:'Push depth comfortably · tight braced core'},
+          {n:'Barbell Bench Press',s:3,r:5,rest:150,m:'Controlled descent · explosive drive up'},
+          {n:'Chest-Supported Barbell Row',s:3,r:8,rest:120,m:'Balances pressing · protects shoulders'},
+          {n:'Walking Dumbbell Lunges',s:3,r:10,rest:90,m:'Each leg · unilateral quad/glute power'},
+          {n:'Abdominal Plank',s:3,rest:60,m:'60 sec hold · squeeze glutes and quads · maximum full-body tension'},
+        ]},
+       ]},
+      {day:5,dow:'FRI',title:'Active Recovery Run',tags:['Cardio'],isRest:false,
+       note:'Keep legs moving without adding stress ahead of Saturday\'s long run. Low impact is the priority.',
+       secs:[
+        {type:'cardio',lbl:'Active Recovery',exs:[
+          {n:'Easy Recovery Run',m:'20–30 min · very easy, relaxed pace · Zone 1–2'},
+          {n:'Alternative (if needed)',m:'30–40 min low-resistance swim, row, or easy cycling · if joints/shins feel heavy'},
+        ]},
+       ]},
+      {day:6,dow:'SAT',title:'Long Endurance Run',tags:['Cardio'],isRest:false,
+       note:'Cornerstone of cardiovascular foundation. Builds capillary density, strengthens tendons, and trains the mind for time on feet.',
+       secs:[
+        {type:'cardio',lbl:'Warm-Up',exs:[
+          {n:'Walking-Jog Start',m:'First 10 min at very slow walking-jog pace · gentle mobility if stiff'},
+        ]},
+        {type:'cardio',lbl:'Main Set — Long Run',exs:[
+          {n:'Continuous Long Run',m:'60–90 min · strict Zone 2 · fully conversational · short quick steps · steady heart rate, not speed'},
+        ]},
+        {type:'mobility',lbl:'Cool-Down',exs:[
+          {n:'Thorough Stretch',m:'10 min · calves, quads, IT bands, hip flexors'},
+        ]},
+       ]},
+      {day:7,dow:'SUN',title:'Complete Rest & Reset',tags:['Rest'],isRest:true,
+       note:'No lifting, no running, no high-impact training. Prioritize hydration and nutrition to replenish glycogen for Monday\'s speed session.',
+       secs:[
+        {type:'mobility',lbl:'Light Recovery',exs:[
+          {n:'Foam Rolling + Mobility',m:'10–15 min · release tight tissue · no intensity'},
+        ]},
+       ]},
+    ]
+  };
+}
+
+
 function makeFlatFeetProg(){
   const DOWS=['MON','TUE','WED','THU','FRI','SAT','SUN'];
   return{
@@ -799,6 +899,8 @@ function initPrograms(){
   // Always refresh built-in data from source code so new fields propagate
   const tpIdx=progs.findIndex(p=>p.id==='training_plan');
   if(tpIdx>=0){progs[tpIdx]=makeTrainingPlanProg();}else{progs.unshift(makeTrainingPlanProg());}
+  const hrIdx=progs.findIndex(p=>p.id==='hybrid_run_strength');
+  if(hrIdx>=0){progs[hrIdx]=makeHybridRunStrengthProg();}else{progs.push(makeHybridRunStrengthProg());}
   if(!progs.find(p=>p.id==='flat_feet_fix')){progs.push(makeFlatFeetProg());}
   ss('power_programs',progs);
   // Fix active program if it pointed at a now-removed program
