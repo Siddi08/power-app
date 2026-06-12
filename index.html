@@ -810,6 +810,107 @@ function makeHybridRunStrengthProg(){
 }
 
 
+function makeWeeklyWorkoutProg(){
+  return{
+    id:'weekly_workout',
+    name:'WEEKLY WORKOUT PROGRAM',
+    subtitle:'7-Day Triathlon Base · Strength + Swim + Bike + Run',
+    isBuiltIn:true,
+    createdAt:0,
+    days:[
+      {day:1,dow:'MON',title:'Strength (Lower Body + Power) + Swim Technique',tags:['Strength','Cardio'],isRest:false,
+       note:'AM strength first, PM swim technique. Focus on form over load for squats.',
+       secs:[
+        {type:'strength',lbl:'AM Strength — Lower Body + Power',exs:[
+          {n:'Back Squat / Goblet Squat',s:3,r:10,m:'Back squat or goblet squat · controlled descent'},
+          {n:'Romanian Deadlift (RDL)',s:3,r:10,m:'Hinge at hips · slow eccentric · maintain neutral spine'},
+          {n:'Bulgarian Split Squat',s:3,r:8,m:'Each leg · rear foot elevated on bench'},
+          {n:'Calf Raises',s:3,r:15,m:'Full range of motion · slow lowering'},
+          {n:'Plank',s:3,m:'45–60 sec · squeeze glutes and brace core'},
+        ]},
+        {type:'cardio',lbl:'PM Swim — Technique (30 min)',exs:[
+          {n:'Catch-Up Drill',m:'4 × (25 m drill / 25 m swim) · focus on full arm extension before pull'},
+          {n:'Single-Arm Drill',m:'Part of the 4×50 m set · isolate catch and pull on each side'},
+          {n:'Bilateral Breathing',m:'Breathe every 3 strokes · x4–5 rounds with rest between'},
+        ]},
+       ]},
+      {day:2,dow:'TUE',title:'Bike (Short Spin) + Easy Run',tags:['Cardio'],isRest:false,
+       note:'Active recovery day. Both sessions at easy effort — do not push the pace or resistance.',
+       secs:[
+        {type:'cardio',lbl:'AM Bike — Short Spin (45 min)',exs:[
+          {n:'Easy Spin',m:'45 min · cadence 80–90 rpm · flat route or light resistance · conversational'},
+        ]},
+        {type:'cardio',lbl:'PM Run — Easy (30 min)',exs:[
+          {n:'Easy Run',m:'30 min · conversational pace throughout · Zone 2'},
+        ]},
+       ]},
+      {day:3,dow:'WED',title:'Strength (Upper Body + Core) + Swim Endurance',tags:['Strength','Cardio'],isRest:false,
+       note:'Upper body lift AM, swim endurance PM. Rest fully between swim intervals.',
+       secs:[
+        {type:'strength',lbl:'AM Strength — Upper Body + Core',exs:[
+          {n:'Push-Ups',s:3,r:10,m:'10–12 reps · full range · chest to floor'},
+          {n:'Bent-Over Row',s:3,r:10,m:'Barbell or dumbbell · overhand grip · hinge 45°'},
+          {n:'Overhead Press',s:3,r:10,m:'Dumbbell or barbell · strict · no leg drive'},
+          {n:'Bicep Curls',s:3,r:12,m:'Full curl · controlled lowering'},
+          {n:'Tricep Dips',s:3,r:12,m:'Bodyweight · full range · keep elbows narrow'},
+          {n:'Side Plank',s:3,m:'30–45 sec per side · hips lifted and stacked'},
+          {n:'Russian Twists',s:3,r:20,m:'20 reps total · controlled rotation · add weight to progress'},
+        ]},
+        {type:'cardio',lbl:'PM Swim — Endurance (30–40 min)',exs:[
+          {n:'Warm-Up',m:'200 m easy · build pace gradually'},
+          {n:'Main Set',m:'4–6 × 100 m · moderate effort · 60–90 sec rest between'},
+          {n:'Cool-Down',m:'100 m easy · focus on long strokes'},
+        ]},
+       ]},
+      {day:4,dow:'THU',title:'Run (Fartlek) + Bike (Long Steady)',tags:['Cardio'],isRest:false,
+       note:'Run AM, bike PM. Fartlek intervals should feel controlled hard — not all-out sprints.',
+       secs:[
+        {type:'cardio',lbl:'AM Run — Fartlek (30 min)',exs:[
+          {n:'Warm-Up Jog',m:'10 min · easy pace · dynamic leg swings'},
+          {n:'Fartlek Intervals',m:'8 × (1 min hard / 2 min easy) · hard = 85–90% effort'},
+          {n:'Cool-Down',m:'5 min · easy jog to walk'},
+        ]},
+        {type:'cardio',lbl:'PM Bike — Long Steady (60–75 min)',exs:[
+          {n:'Zone 2 Ride',m:'60–75 min total · conversational effort throughout'},
+          {n:'Middle Third Pushes',m:'6 × (3 min moderately hard / 2 min easy) · in the middle third of the ride'},
+        ]},
+       ]},
+      {day:5,dow:'FRI',title:'Strength (Full Body + Power) + Rest/Mobility',tags:['Strength'],isRest:false,
+       note:'Final strength session of the week. PM is full rest or light mobility only — protect legs for weekend.',
+       secs:[
+        {type:'strength',lbl:'AM Strength — Full Body + Power',exs:[
+          {n:'Deadlift',s:3,r:8,m:'Conventional · brace hard · hinge not squat'},
+          {n:'Walking / Reverse Lunges',s:3,r:10,m:'Each leg · loaded with DBs at sides'},
+          {n:'Single-Arm Row',s:3,r:10,m:'Each side · support on bench · full range of motion'},
+          {n:'Box Jumps / Jump Squats',s:3,r:8,m:'Explosive · full hip extension at top · soft landing'},
+          {n:'Dead Bugs',s:3,r:10,m:'Each side · lower back pressed to floor throughout'},
+          {n:"Farmer's Carries",s:3,m:'30–40 m each · heavy DBs · tall posture · controlled steps'},
+        ]},
+        {type:'mobility',lbl:'PM Rest / Mobility & Stretching',exs:[
+          {n:'Mobility & Stretching',m:'Hip flexors, quads, hamstrings, calves, shoulders · hold each 30–60 sec'},
+        ]},
+       ]},
+      {day:6,dow:'SAT',title:'Long Swim / Open Water',tags:['Cardio'],isRest:false,
+       note:'Build toward a continuous 750 m–1 km effort. If open water: sight every 10 strokes and stay relaxed.',
+       secs:[
+        {type:'cardio',lbl:'Long Swim / Open Water (45–60 min)',exs:[
+          {n:'Continuous Swim',m:'Build toward 750 m–1 km continuous · pool or open water · steady aerobic effort'},
+          {n:'Sighting Practice',m:'Open water: sight every 10 strokes · lift eyes only · minimal head rotation'},
+        ]},
+       ]},
+      {day:7,dow:'SUN',title:'Long Run',tags:['Cardio'],isRest:false,
+       note:'Easy Zone 2 effort throughout. Strides at the end are short and fast — not a sprint, just a tempo lift.',
+       secs:[
+        {type:'cardio',lbl:'Long Run (45–60 min)',exs:[
+          {n:'Easy Long Run',m:'45–60 min · easy Zone 2 pace · fully conversational throughout'},
+          {n:'Strides',m:'4 × 30 sec · last 15 min of run · build to 85% effort, float back to easy'},
+        ]},
+       ]},
+    ]
+  };
+}
+
+
 function makeFlatFeetProg(){
   const DOWS=['MON','TUE','WED','THU','FRI','SAT','SUN'];
   return{
@@ -901,6 +1002,8 @@ function initPrograms(){
   if(tpIdx>=0){progs[tpIdx]=makeTrainingPlanProg();}else{progs.unshift(makeTrainingPlanProg());}
   const hrIdx=progs.findIndex(p=>p.id==='hybrid_run_strength');
   if(hrIdx>=0){progs[hrIdx]=makeHybridRunStrengthProg();}else{progs.push(makeHybridRunStrengthProg());}
+  const wwIdx=progs.findIndex(p=>p.id==='weekly_workout');
+  if(wwIdx>=0){progs[wwIdx]=makeWeeklyWorkoutProg();}else{progs.push(makeWeeklyWorkoutProg());}
   if(!progs.find(p=>p.id==='flat_feet_fix')){progs.push(makeFlatFeetProg());}
   ss('power_programs',progs);
   // Fix active program if it pointed at a now-removed program
