@@ -994,22 +994,26 @@ const ss=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 // ── PROGRAM MANAGEMENT ────────────────────────────────
 function initPrograms(){
   const OLD_IDS=['power_default','wrist_default'];
+  const hidden=ls('power_hidden_builtins')||[];
   let progs=ls('power_programs')||[];
-  // Remove old built-in programs, keep any user-created ones
   progs=progs.filter(p=>!OLD_IDS.includes(p.id));
-  // Always refresh built-in data from source code so new fields propagate
-  const tpIdx=progs.findIndex(p=>p.id==='training_plan');
-  if(tpIdx>=0){progs[tpIdx]=makeTrainingPlanProg();}else{progs.unshift(makeTrainingPlanProg());}
-  const hrIdx=progs.findIndex(p=>p.id==='hybrid_run_strength');
-  if(hrIdx>=0){progs[hrIdx]=makeHybridRunStrengthProg();}else{progs.push(makeHybridRunStrengthProg());}
-  const wwIdx=progs.findIndex(p=>p.id==='weekly_workout');
-  if(wwIdx>=0){progs[wwIdx]=makeWeeklyWorkoutProg();}else{progs.push(makeWeeklyWorkoutProg());}
-  if(!progs.find(p=>p.id==='flat_feet_fix')){progs.push(makeFlatFeetProg());}
+  if(!hidden.includes('training_plan')){
+    const tpIdx=progs.findIndex(p=>p.id==='training_plan');
+    if(tpIdx>=0){progs[tpIdx]=makeTrainingPlanProg();}else{progs.unshift(makeTrainingPlanProg());}
+  }
+  if(!hidden.includes('hybrid_run_strength')){
+    const hrIdx=progs.findIndex(p=>p.id==='hybrid_run_strength');
+    if(hrIdx>=0){progs[hrIdx]=makeHybridRunStrengthProg();}else{progs.push(makeHybridRunStrengthProg());}
+  }
+  if(!hidden.includes('weekly_workout')){
+    const wwIdx=progs.findIndex(p=>p.id==='weekly_workout');
+    if(wwIdx>=0){progs[wwIdx]=makeWeeklyWorkoutProg();}else{progs.push(makeWeeklyWorkoutProg());}
+  }
+  if(!hidden.includes('flat_feet_fix')&&!progs.find(p=>p.id==='flat_feet_fix')){progs.push(makeFlatFeetProg());}
   ss('power_programs',progs);
-  // Fix active program if it pointed at a now-removed program
   const activeId=localStorage.getItem('power_active_program');
   if(!activeId||OLD_IDS.includes(activeId)||!progs.find(p=>p.id===activeId)){
-    localStorage.setItem('power_active_program','training_plan');
+    localStorage.setItem('power_active_program',progs[0]?.id||'training_plan');
   }
 }
 
@@ -1062,6 +1066,11 @@ function switchProgram(id){
 function deleteProgram(id){
   if(id===getActiveProgramId()){alert('Cannot delete the active program. Switch to another program first.');return}
   if(!confirm('Delete this program and all its progress data? This cannot be undone.'))return;
+  const prog=getPrograms().find(p=>p.id===id);
+  if(prog&&prog.isBuiltIn){
+    const hidden=ls('power_hidden_builtins')||[];
+    if(!hidden.includes(id)){hidden.push(id);ss('power_hidden_builtins',hidden);}
+  }
   const progs=getPrograms().filter(p=>p.id!==id);
   savePrograms(progs);
   ['completedDays','exerciseChecks','exerciseNotes','dayNotes','lastWeek','startDate'].forEach(k=>{
@@ -1444,7 +1453,7 @@ function renderPrograms(){
   progs.forEach(p=>{
     const isActive=p.id===activeId;
     const completed=Object.keys(lspFor(p.id,'completedDays')).length;
-    const canDelete=!isActive&&!p.isBuiltIn;
+    const canDelete=!isActive;
     const isFlatFeet=p.id==='flat_feet_fix';
     html+=`<div class="pc${isActive?' active-prog':''}" ${!isActive?`onclick="switchProgram('${p.id}')"`:''}>
       ${isActive?'<div class="pc-badge">ACTIVE</div>':''}
