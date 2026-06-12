@@ -818,7 +818,15 @@ function makeWeeklyWorkoutProg(){
     isBuiltIn:true,
     createdAt:0,
     days:[
-      {day:1,dow:'MON',title:'Strength (Lower Body + Power) + Swim Technique',tags:['Strength','Cardio'],isRest:false,
+      {day:1,dow:'SUN',title:'Long Run',tags:['Cardio'],isRest:false,
+       note:'Start the week with your long run. Easy Zone 2 effort throughout — strides at the end are short accelerations, not sprints.',
+       secs:[
+        {type:'cardio',lbl:'Long Run (45–60 min)',exs:[
+          {n:'Easy Long Run',m:'45–60 min · easy Zone 2 pace · fully conversational throughout'},
+          {n:'Strides',m:'4 × 30 sec · last 15 min of run · build to 85% effort, float back to easy'},
+        ]},
+       ]},
+      {day:2,dow:'MON',title:'Strength (Lower Body + Power) + Swim Technique',tags:['Strength','Cardio'],isRest:false,
        note:'AM strength first, PM swim technique. Focus on form over load for squats.',
        secs:[
         {type:'strength',lbl:'AM Strength — Lower Body + Power',exs:[
@@ -834,7 +842,7 @@ function makeWeeklyWorkoutProg(){
           {n:'Bilateral Breathing',m:'Breathe every 3 strokes · x4–5 rounds with rest between'},
         ]},
        ]},
-      {day:2,dow:'TUE',title:'Bike (Short Spin) + Easy Run',tags:['Cardio'],isRest:false,
+      {day:3,dow:'TUE',title:'Bike (Short Spin) + Easy Run',tags:['Cardio'],isRest:false,
        note:'Active recovery day. Both sessions at easy effort — do not push the pace or resistance.',
        secs:[
         {type:'cardio',lbl:'AM Bike — Short Spin (45 min)',exs:[
@@ -844,7 +852,7 @@ function makeWeeklyWorkoutProg(){
           {n:'Easy Run',m:'30 min · conversational pace throughout · Zone 2'},
         ]},
        ]},
-      {day:3,dow:'WED',title:'Strength (Upper Body + Core) + Swim Endurance',tags:['Strength','Cardio'],isRest:false,
+      {day:4,dow:'WED',title:'Strength (Upper Body + Core) + Swim Endurance',tags:['Strength','Cardio'],isRest:false,
        note:'Upper body lift AM, swim endurance PM. Rest fully between swim intervals.',
        secs:[
         {type:'strength',lbl:'AM Strength — Upper Body + Core',exs:[
@@ -862,7 +870,7 @@ function makeWeeklyWorkoutProg(){
           {n:'Cool-Down',m:'100 m easy · focus on long strokes'},
         ]},
        ]},
-      {day:4,dow:'THU',title:'Run (Fartlek) + Bike (Long Steady)',tags:['Cardio'],isRest:false,
+      {day:5,dow:'THU',title:'Run (Fartlek) + Bike (Long Steady)',tags:['Cardio'],isRest:false,
        note:'Run AM, bike PM. Fartlek intervals should feel controlled hard — not all-out sprints.',
        secs:[
         {type:'cardio',lbl:'AM Run — Fartlek (30 min)',exs:[
@@ -875,8 +883,8 @@ function makeWeeklyWorkoutProg(){
           {n:'Middle Third Pushes',m:'6 × (3 min moderately hard / 2 min easy) · in the middle third of the ride'},
         ]},
        ]},
-      {day:5,dow:'FRI',title:'Strength (Full Body + Power) + Rest/Mobility',tags:['Strength'],isRest:false,
-       note:'Final strength session of the week. PM is full rest or light mobility only — protect legs for weekend.',
+      {day:6,dow:'FRI',title:'Strength (Full Body + Power) + Long Swim',tags:['Strength','Cardio'],isRest:false,
+       note:'Final strength session of the week, then long swim PM. Saturday is full rest — push through Friday strong.',
        secs:[
         {type:'strength',lbl:'AM Strength — Full Body + Power',exs:[
           {n:'Deadlift',s:3,r:8,m:'Conventional · brace hard · hinge not squat'},
@@ -886,24 +894,16 @@ function makeWeeklyWorkoutProg(){
           {n:'Dead Bugs',s:3,r:10,m:'Each side · lower back pressed to floor throughout'},
           {n:"Farmer's Carries",s:3,m:'30–40 m each · heavy DBs · tall posture · controlled steps'},
         ]},
-        {type:'mobility',lbl:'PM Rest / Mobility & Stretching',exs:[
-          {n:'Mobility & Stretching',m:'Hip flexors, quads, hamstrings, calves, shoulders · hold each 30–60 sec'},
-        ]},
-       ]},
-      {day:6,dow:'SAT',title:'Long Swim / Open Water',tags:['Cardio'],isRest:false,
-       note:'Build toward a continuous 750 m–1 km effort. If open water: sight every 10 strokes and stay relaxed.',
-       secs:[
-        {type:'cardio',lbl:'Long Swim / Open Water (45–60 min)',exs:[
+        {type:'cardio',lbl:'PM Long Swim / Open Water (45–60 min)',exs:[
           {n:'Continuous Swim',m:'Build toward 750 m–1 km continuous · pool or open water · steady aerobic effort'},
           {n:'Sighting Practice',m:'Open water: sight every 10 strokes · lift eyes only · minimal head rotation'},
         ]},
        ]},
-      {day:7,dow:'SUN',title:'Long Run',tags:['Cardio'],isRest:false,
-       note:'Easy Zone 2 effort throughout. Strides at the end are short and fast — not a sprint, just a tempo lift.',
+      {day:7,dow:'SAT',title:'Rest & Recovery',tags:['Rest'],isRest:true,
+       note:'Full rest day. No lifting, no structured training. Prioritise sleep, hydration, and nutrition to set up a strong Sunday long run.',
        secs:[
-        {type:'cardio',lbl:'Long Run (45–60 min)',exs:[
-          {n:'Easy Long Run',m:'45–60 min · easy Zone 2 pace · fully conversational throughout'},
-          {n:'Strides',m:'4 × 30 sec · last 15 min of run · build to 85% effort, float back to easy'},
+        {type:'mobility',lbl:'Optional Light Mobility',exs:[
+          {n:'Mobility & Stretching',m:'Hip flexors, quads, hamstrings, calves, shoulders · hold each 30–60 sec · no intensity'},
         ]},
        ]},
     ]
